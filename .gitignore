@@ -1,0 +1,25 @@
+node_modules
+.DS_Store
+dist
+dist-ssr
+*.local
+
+# TS
+*.tsbuildinfo
+
+# Turbo
+.turbo
+
+#vscode
+.vscode/
+
+#yarn
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+yarn-error.log*
+.env

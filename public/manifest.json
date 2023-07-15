@@ -1,0 +1,12 @@
+{
+  "short_name": "japes-webapp",
+  "name": "Junø Apes - Web App",
+  "lang": "en",
+  "start_url": "/",
+  "background_color": "#feebc8",
+  "theme_color": "#feebc8",
+  "dir": "ltr",
+  "display": "standalone",
+  "orientation": "portrait",
+  "prefer_related_applications": false
+}

@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext", "WebWorker"],
+    "declaration": true,
+    "declarationMap": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "moduleResolution": "node",
+    "module": "ESNext",
+    "noLib": false,
+    "strict": true,
+    "incremental": true,
+    "strictPropertyInitialization": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "noEmitOnError": false,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "extendedDiagnostics": false,
+    "listFiles": false,
+    "jsx": "react-jsx",
+    "baseUrl": "./src",
+    "types": ["node", "vite/client"],
+    "typeRoots": ["../../node_modules/@types"]
+  },
+  "include": ["./src"]
+}

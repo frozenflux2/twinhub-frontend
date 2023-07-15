@@ -1,0 +1,176 @@
+{
+    "name": "betfigame",
+    "version": "2.0.0",
+    "author": "Bikas Lin",
+    "license": "MIT",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "build:turbo": "npx turbo build",
+        "serve": "vite preview",
+        "lint": "eslint src --no-error-on-unmatched-pattern",
+        "lint:fix": "eslint src --fix && yarn format --no-error-on-unmatched-pattern",
+        "lint:turbo": "npx turbo lint",
+        "type-check": "tsc --noEmit",
+        "type-check:turbo": "npx turbo type-check",
+        "format": "prettier --write src",
+        "up": "yarn upgrade-interactive",
+        "up-latest": "yarn up --latest",
+        "release": "HUSKY=0 release-it",
+        "prepare": "yarn husky install",
+        "theme": "chakra-cli tokens src/theme/index.ts",
+        "theme:watch": "chakra-cli tokens src/theme/index.ts --watch"
+    },
+    "dependencies": {
+        "@chakra-ui/icons": "^2.0.19",
+        "@chakra-ui/react": "2.4.3",
+        "@cosmjs/cosmwasm-stargate": "^0.29.5",
+        "@cosmjs/encoding": "^0.29.5",
+        "@cosmjs/launchpad": "^0.27.1",
+        "@cosmjs/math": "^0.29.5",
+        "@cosmjs/proto-signing": "^0.30.1",
+        "@cosmjs/stargate": "^0.29.5",
+        "@cosmos-kit/core": "^1.3.4",
+        "@cosmos-kit/cosmostation": "^0.15.17",
+        "@cosmos-kit/frontier": "^0.1.16",
+        "@cosmos-kit/keplr": "^0.33.18",
+        "@cosmos-kit/leap": "^0.14.16",
+        "@cosmos-kit/omni": "^0.33.17",
+        "@cosmos-kit/react": "^1.3.15",
+        "@cosmos-kit/terrastation": "^0.1.4",
+        "@cosmos-kit/trust": "^0.14.17",
+        "@cosmos-kit/vectis": "^0.15.16",
+        "@cosmos-kit/xdefi-extension": "^0.15.16",
+        "@emotion/react": "11.10.5",
+        "@emotion/styled": "11.10.5",
+        "@fontsource/archivo-black": "^4.5.9",
+        "@fontsource/bungee-spice": "^4.5.0",
+        "@fontsource/poppins": "^4.5.10",
+        "@hopersio/contracts": "^0.1.3",
+        "@nivo/core": "^0.80.0",
+        "@nivo/line": "^0.80.0",
+        "@rive-app/react-canvas": "^3.0.38",
+        "@sei-js/core": "^1.3.2",
+        "@sei-js/react": "^1.2.3",
+        "@tanstack/react-query": "^4.24.6",
+        "@tanstack/react-query-devtools": "^4.24.9",
+        "@tanstack/react-table": "^8.7.9",
+        "ahooks": "^3.7.4",
+        "axios": "^1.3.6",
+        "chain-registry": "^1.6.0",
+        "chakra-react-select": "^4.4.3",
+        "dayjs": "^1.11.7",
+        "dotenv": "^16.0.3",
+        "framer-motion": "^8.1.7",
+        "juno-network": "^0.14.0",
+        "protobufjs": "^7.2.3",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-helmet": "^6.1.0",
+        "react-icons": "^4.7.1",
+        "react-number-format": "^5.1.3",
+        "react-palette": "^1.0.2",
+        "react-qrcode-logo": "^2.8.0",
+        "react-resize-detector": "^8.0.4",
+        "react-router-dom": "^6.6.2",
+        "react-toastify": "^9.1.1",
+        "react-window": "^1.8.8",
+        "recoil": "^0.7.6",
+        "recoil-nexus": "^0.4.0",
+        "swiper": "^9.0.5"
+    },
+    "devDependencies": {
+        "@chakra-ui/cli": "^2.3.0",
+        "@commitlint/cli": "^17.4.2",
+        "@commitlint/config-conventional": "^17.4.2",
+        "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+        "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
+        "@release-it/conventional-changelog": "^5.1.1",
+        "@semantic-release/changelog": "6.0.1",
+        "@semantic-release/git": "10.0.1",
+        "@types/node": "18.14.0",
+        "@types/react": "18.0.28",
+        "@types/react-dom": "18.0.11",
+        "@types/react-helmet": "^6.1.6",
+        "@typescript-eslint/eslint-plugin": "5.48.0",
+        "@typescript-eslint/parser": "5.48.0",
+        "@vitejs/plugin-react": "^3.1.0",
+        "commitizen": "^4.2.6",
+        "cosmjs-types": "^0.6.1",
+        "cz-conventional-changelog": "3.3.0",
+        "eslint": "^8.33.0",
+        "eslint-config-canonical": "^37.0.4",
+        "eslint-config-prettier": "^8.6.0",
+        "eslint-plugin-canonical": "^3.1.0",
+        "eslint-plugin-prettier": "^4.2.1",
+        "git-cz": "^4.9.0",
+        "husky": "8.0.2",
+        "lint-staged": "13.0.3",
+        "prettier": "^2.5.1",
+        "process": "^0.11.10",
+        "release-it": "^15.6.0",
+        "rollup-plugin-polyfill-node": "^0.12.0",
+        "semantic-release": "19.0.5",
+        "typescript": "4.8.3",
+        "vite": "^4.1.4",
+        "vite-plugin-checker": "^0.5.6",
+        "vite-plugin-html": "^3.2.0",
+        "vite-tsconfig-paths": "^4.0.5"
+    },
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-conventional-changelog"
+        }
+    },
+    "release-it": {
+        "github": {
+            "release": true
+        },
+        "npm": {
+            "publish": false
+        },
+        "plugins": {
+            "@release-it/conventional-changelog": {
+                "infile": "CHANGELOG.md",
+                "preset": {
+                    "name": "conventionalcommits",
+                    "types": [
+                        {
+                            "type": "feat",
+                            "section": "Features"
+                        },
+                        {
+                            "type": "fix",
+                            "section": "Bug Fixes"
+                        },
+                        {
+                            "type": "refactor",
+                            "section": "Refactor"
+                        },
+                        {
+                            "type": "perf",
+                            "section": "Performance"
+                        },
+                        {
+                            "type": "style",
+                            "section": "Visuals"
+                        },
+                        {
+                            "type": "docs",
+                            "section": "Docs"
+                        },
+                        {
+                            "type": "chore",
+                            "section": "Chore"
+                        },
+                        {
+                            "type": "test",
+                            "section": "Tests"
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "packageManager": "yarn@3.5.0"
+}
