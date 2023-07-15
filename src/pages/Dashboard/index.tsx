@@ -110,15 +110,14 @@ const Dashboard = () => {
                         .filter((val) =>
                             val.name.toLowerCase().includes(search)
                         )
-                        .map((el) => (
-                            <>
-                                <UserCard
-                                    name={el.name}
-                                    image={el.image}
-                                    description={el.description}
-                                    userId={el.userId}
-                                />
-                            </>
+                        .map((el, key) => (
+                            <UserCard
+                                key={`${key}`}
+                                name={el.name}
+                                image={el.image}
+                                description={el.description}
+                                userId={el.userId}
+                            />
                         ))}
                 </Flex>
             </Container>
