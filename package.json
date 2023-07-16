@@ -1,7 +1,7 @@
 {
-    "name": "betfigame",
-    "version": "2.0.0",
-    "author": "Bikas Lin",
+    "name": "twinhub",
+    "version": "1.0.0",
+    "author": "Aurorin Starlight",
     "license": "MIT",
     "scripts": {
         "dev": "vite",
@@ -67,6 +67,7 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-helmet": "^6.1.0",
+        "react-hook-form": "^7.45.1",
         "react-icons": "^4.7.1",
         "react-number-format": "^5.1.3",
         "react-palette": "^1.0.2",
@@ -115,6 +116,7 @@
         "vite": "^4.1.4",
         "vite-plugin-checker": "^0.5.6",
         "vite-plugin-html": "^3.2.0",
+        "vite-plugin-mkcert": "^1.16.0",
         "vite-tsconfig-paths": "^4.0.5"
     },
     "config": {
