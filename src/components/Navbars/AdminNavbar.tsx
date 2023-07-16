@@ -35,7 +35,7 @@ import {
     Link
 } from "@chakra-ui/react"
 import PropTypes from "prop-types"
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import AdminNavbarLinks from "./AdminNavbarLinks"
 import { Link as RouterLink, useNavigate } from "react-router-dom"
 import { CreditIcon, HomeIcon } from "components/Icons/Icons"
@@ -45,7 +45,7 @@ import {
     FaCreditCard,
     FaEnvelope
 } from "react-icons/fa"
-import { NavbarPosition } from "../../constants"
+import { AppContext, NavbarPosition } from "../../constants"
 import Logo from "../../assets/img/logo.png"
 import { HamburgerIcon } from "@chakra-ui/icons"
 import IconBox from "components/Icons/IconBox"
@@ -65,6 +65,10 @@ export default function AdminNavbar(props) {
         /*onOpen,*/ ...rest
     } = props
     const btnRef = React.useRef()
+
+    const contextData = useContext(AppContext)
+    const isAuthorized = contextData?.isAuthorized
+    const setIsAuthorized = contextData?.setAuthorized
 
     // Here are all the props that may change depending on navbar's type or state.(secondary, variant, scrolled)
     let navbarPosition: NavbarPosition = "absolute"
@@ -169,9 +173,13 @@ export default function AdminNavbar(props) {
                     <SidebarResponsive />
                     <Button
                         padding={"4px 36px"}
-                        onClick={() => navigate("/login")}
+                        onClick={() =>
+                            isAuthorized
+                                ? setIsAuthorized && setIsAuthorized(false)
+                                : navigate("/login")
+                        }
                     >
-                        Login
+                        {isAuthorized ? "Logout" : "Login"}
                     </Button>
                 </HStack>
             </Flex>

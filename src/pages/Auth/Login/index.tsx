@@ -9,12 +9,16 @@ import {
     DarkMode,
     Switch,
     Button,
-    Link
+    Link,
+    FormErrorMessage
 } from "@chakra-ui/react"
 import { motion } from "framer-motion"
-import { useNavigate, Link as RouterLink } from "react-router-dom"
+import { useNavigate, Link as RouterLink, Navigate } from "react-router-dom"
+import { useForm } from "react-hook-form"
 import auth_background from "../../../assets/img/auth_background.png"
 import GradientBorder from "../Component/GradientBorder"
+import { useContext } from "react"
+import { AppContext, BackendUrl } from "../../../constants"
 
 const Login = () => {
     const navigate = useNavigate()
@@ -23,7 +27,58 @@ const Login = () => {
     const titleColor = "white"
     const textColor = "gray.400"
 
-    return (
+    const {
+        handleSubmit,
+        register,
+        formState: { errors, isSubmitting },
+        setError
+    } = useForm()
+
+    const contextData = useContext(AppContext)
+    const isAuthorized = contextData?.isAuthorized
+    const setIsAuthorized = contextData?.setAuthorized
+
+    const onSubmit = (values) => {
+        return new Promise<void>((resolve) => {
+            console.log("value: ", values)
+            fetch(`${BackendUrl}/token`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: `username=${values.email}&password=${values.password}`
+            })
+                .then((response) => response.json())
+                .then((response) => {
+                    if (response.detail) {
+                        setError("email", {
+                            type: "manual",
+                            message: response.detail
+                        })
+                        setError("password", {
+                            type: "manual",
+                            message: response.detail
+                        })
+                    } else if (response.access_token) {
+                        console.log("loggedin: ", response.access_token)
+                        window.localStorage.setItem(
+                            "access_token",
+                            response.access_token
+                        )
+                        setIsAuthorized && setIsAuthorized(true)
+                    }
+                    resolve()
+                })
+                .catch((err) => {
+                    console.log("err:", err)
+                    resolve()
+                })
+        })
+    }
+
+    return isAuthorized ? (
+        <Navigate to={"/index"} />
+    ) : (
         <Flex position={"relative"}>
             <Flex
                 minH="100vh"
@@ -68,92 +123,124 @@ const Login = () => {
                         >
                             Enter your email and password to sign in
                         </Text>
-                        <FormControl>
-                            <FormLabel
-                                ms="4px"
-                                fontSize="sm"
-                                fontWeight="normal"
-                                color="white"
-                            >
-                                Email
-                            </FormLabel>
-                            <GradientBorder
-                                mb="24px"
-                                w={{ base: "100%", lg: "fit-content" }}
-                                borderRadius="20px"
-                            >
-                                <Input
-                                    color="white"
-                                    bg="rgb(19,21,54)"
-                                    border="transparent"
-                                    borderRadius="20px"
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <FormControl isInvalid={!!errors.email}>
+                                <FormLabel
+                                    ms="4px"
                                     fontSize="sm"
-                                    size="lg"
-                                    w={{ base: "100%", md: "346px" }}
-                                    maxW="100%"
-                                    h="46px"
-                                    placeholder="Your email adress"
-                                />
-                            </GradientBorder>
-                        </FormControl>
-                        <FormControl>
-                            <FormLabel
-                                ms="4px"
-                                fontSize="sm"
-                                fontWeight="normal"
-                                color="white"
-                            >
-                                Password
-                            </FormLabel>
-                            <GradientBorder
-                                mb="24px"
-                                w={{ base: "100%", lg: "fit-content" }}
-                                borderRadius="20px"
-                            >
-                                <Input
+                                    fontWeight="normal"
                                     color="white"
-                                    bg="rgb(19,21,54)"
-                                    border="transparent"
+                                    htmlFor="email"
+                                >
+                                    Email
+                                </FormLabel>
+                                <GradientBorder
+                                    mb="24px"
+                                    w={{ base: "100%", lg: "fit-content" }}
                                     borderRadius="20px"
+                                >
+                                    <Input
+                                        id="email"
+                                        color="white"
+                                        bg="rgb(19,21,54)"
+                                        border="transparent"
+                                        borderRadius="20px"
+                                        fontSize="sm"
+                                        size="lg"
+                                        w={{ base: "100%", md: "346px" }}
+                                        maxW="100%"
+                                        h="46px"
+                                        placeholder="Your email address"
+                                        {...register("email", {
+                                            required: "This is required",
+                                            pattern: {
+                                                value: /^\S+@\S+$/i,
+                                                message: "Invalid email address"
+                                            }
+                                        })}
+                                    />
+                                </GradientBorder>
+                                {errors.email && (
+                                    <FormErrorMessage mt={"-24px"} pb={"6px"}>
+                                        {errors.email.message as string}
+                                    </FormErrorMessage>
+                                )}
+                            </FormControl>
+                            <FormControl isInvalid={!!errors.password}>
+                                <FormLabel
+                                    ms="4px"
                                     fontSize="sm"
-                                    size="lg"
-                                    w={{ base: "100%", md: "346px" }}
-                                    maxW="100%"
-                                    type="password"
-                                    placeholder="Your password"
-                                />
-                            </GradientBorder>
-                        </FormControl>
-                        <FormControl display="flex" alignItems="center">
-                            <DarkMode>
-                                <Switch
-                                    id="remember-login"
-                                    colorScheme="brand"
-                                    me="10px"
-                                />
-                            </DarkMode>
-                            <FormLabel
-                                htmlFor="remember-login"
-                                mb="0"
-                                ms="1"
-                                fontWeight="normal"
-                                color="white"
+                                    fontWeight="normal"
+                                    color="white"
+                                    htmlFor="password"
+                                >
+                                    Password
+                                </FormLabel>
+                                <GradientBorder
+                                    mb="24px"
+                                    w={{ base: "100%", lg: "fit-content" }}
+                                    borderRadius="20px"
+                                >
+                                    <Input
+                                        id="password"
+                                        color="white"
+                                        bg="rgb(19,21,54)"
+                                        border="transparent"
+                                        borderRadius="20px"
+                                        fontSize="sm"
+                                        size="lg"
+                                        w={{ base: "100%", md: "346px" }}
+                                        maxW="100%"
+                                        type="password"
+                                        placeholder="Your password"
+                                        {...register("password", {
+                                            required: "This is required",
+                                            minLength: {
+                                                value: 8,
+                                                message:
+                                                    "Minimum length should be 8"
+                                            }
+                                        })}
+                                    />
+                                </GradientBorder>
+                                {errors.password && (
+                                    <FormErrorMessage mt={"-24px"} pb={"6px"}>
+                                        {errors.password.message as string}
+                                    </FormErrorMessage>
+                                )}
+                            </FormControl>
+                            <FormControl display="flex" alignItems="center">
+                                <DarkMode>
+                                    <Switch
+                                        id="remember-login"
+                                        colorScheme="brand"
+                                        me="10px"
+                                    />
+                                </DarkMode>
+                                <FormLabel
+                                    htmlFor="remember-login"
+                                    mb="0"
+                                    ms="1"
+                                    fontWeight="normal"
+                                    color="white"
+                                >
+                                    Remember me
+                                </FormLabel>
+                            </FormControl>
+                            <Button
+                                variant="brand"
+                                fontSize="10px"
+                                type="submit"
+                                w="100%"
+                                maxW="350px"
+                                h="45"
+                                mb="20px"
+                                mt="20px"
+                                isLoading={isSubmitting}
                             >
-                                Remember me
-                            </FormLabel>
-                        </FormControl>
-                        <Button
-                            variant="brand"
-                            fontSize="10px"
-                            type="submit"
-                            w="100%"
-                            maxW="350px"
-                            h="45"
-                            mb="20px"
-                            mt="20px"
-                        >
-                            SIGN IN
-                        </Button>
+                                SIGN IN
+                            </Button>
+                        </form>
                         <Flex
                             flexDirection="column"
                             justifyContent="center"

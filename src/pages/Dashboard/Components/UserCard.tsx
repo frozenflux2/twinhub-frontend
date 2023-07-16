@@ -8,16 +8,10 @@ import {
     Stack,
     Text
 } from "@chakra-ui/react"
+import { personaProps } from "../../../constants"
 import { Navigate, useNavigate } from "react-router-dom"
 
-export interface UserCardProps {
-    name: string
-    description: string
-    image: string
-    userId: string | number
-}
-
-const UserCard = ({ name, description, image, userId }: UserCardProps) => {
+const UserCard = ({ name, prompt, profile_pic_url, id }: personaProps) => {
     const navigate = useNavigate()
 
     return (
@@ -32,7 +26,7 @@ const UserCard = ({ name, description, image, userId }: UserCardProps) => {
             _hover={{
                 boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)"
             }}
-            onClick={() => navigate(`/chat/${userId}`)}
+            onClick={() => navigate(`/chat/${id}`)}
         >
             <Stack align={"start"} spacing={2}>
                 {/* <Flex
@@ -46,18 +40,18 @@ const UserCard = ({ name, description, image, userId }: UserCardProps) => {
                 >
                     {image}
                 </Flex> */}
-                <Image src={image} w={16} h={16} rounded={"full"} />
+                <Image src={profile_pic_url} w={16} h={16} rounded={"full"} />
                 <Box mt={2}>
                     <Heading size="md">{name}</Heading>
                     <Text mt={1} fontSize={"sm"}>
-                        {description}
+                        {prompt?.slice(0, 100) + "..."}
                     </Text>
                 </Box>
                 <Button
                     variant={"link"}
                     colorScheme={"whatsapp"}
                     size={"sm"}
-                    onClick={() => navigate(`/chat/${userId}`)}
+                    onClick={() => navigate(`/chat/${id}`)}
                 >
                     Visit
                 </Button>

@@ -5,6 +5,7 @@ import { defineConfig, loadEnv } from "vite"
 import checker from "vite-plugin-checker"
 import { createHtmlPlugin } from "vite-plugin-html"
 import tsconfigPaths from "vite-tsconfig-paths"
+import mkcert from "vite-plugin-mkcert"
 
 // function renderChunks(deps) {
 //   const chunks = {}
@@ -73,11 +74,13 @@ export default defineConfig(({ mode }) => {
       }),
       checker({
         typescript: true
-      })
+      }),
+      mkcert()
     ],
     server: {
       hmr: true,
-      host: true
+      host: true,
+      https: true
     }
   }
 })
