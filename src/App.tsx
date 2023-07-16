@@ -22,18 +22,14 @@ const withAuthorization = (WrappedComponent) => {
         useEffect(() => {
             const checkTokenAuthorization = async () => {
                 try {
-                    const response = await fetch(
-                        "http://223.165.6.49/authenticate",
-                        {
-                            method: "GET",
-                            headers: {
-                                access_token:
-                                    window.localStorage.getItem(
-                                        "access_token"
-                                    ) || ""
-                            }
+                    const response = await fetch(`${BackendUrl}/authenticate`, {
+                        method: "GET",
+                        headers: {
+                            access_token:
+                                window.localStorage.getItem("access_token") ||
+                                ""
                         }
-                    )
+                    })
                     if (response.ok) {
                         // Token is authorized
                         const result = await response.json()
@@ -43,6 +39,8 @@ const withAuthorization = (WrappedComponent) => {
                             "access_token",
                             access_token
                         )
+                        const parsed_data = parseJwt(access_token)
+                        console.log("parseJWT: ", parsed_data)
                         setIsAuthorized(true)
                     } else {
                         // Token is not authorized
