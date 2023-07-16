@@ -173,11 +173,13 @@ export default function AdminNavbar(props) {
                     <SidebarResponsive />
                     <Button
                         padding={"4px 36px"}
-                        onClick={() =>
-                            isAuthorized
-                                ? setIsAuthorized && setIsAuthorized(false)
-                                : navigate("/login")
-                        }
+                        onClick={() => {
+                            if (isAuthorized) {
+                                setIsAuthorized && setIsAuthorized(false)
+                                window.localStorage.clear()
+                                navigate("/index")
+                            } else navigate("/login")
+                        }}
                     >
                         {isAuthorized ? "Logout" : "Login"}
                     </Button>
