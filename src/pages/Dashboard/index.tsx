@@ -8,47 +8,22 @@ import {
     IconButton,
     Stack,
     Text,
-    Input
+    Input,
+    CircularProgress,
+    Center
 } from "@chakra-ui/react"
-import UserCard, { UserCardProps } from "./Components/UserCard"
-import { useState } from "react"
+import UserCard from "./Components/UserCard"
+import { useContext, useEffect, useState } from "react"
 import { SearchIcon } from "@chakra-ui/icons"
+import { AppContext, BackendUrl, personaProps } from "../../constants"
+import Loader from "components/Loader"
 
 const Dashboard = () => {
-    const [users, setUsers] = useState<UserCardProps[]>([
-        {
-            name: "Mike Tyson",
-            image: "https://twinhub.s3.us-east-2.amazonaws.com/74/profile_pic.jpeg",
-            description: "I am Mike, how are you",
-            userId: "1"
-        },
-        {
-            name: "Drake",
-            image: "https://twinhub.s3.us-east-2.amazonaws.com/8/profile_pic.jpeg",
-            description: "I am Drake, how are you",
-            userId: "2"
-        },
-        {
-            name: "Scarlette Johasson",
-            image: "https://twinhub.s3.us-east-2.amazonaws.com/74/profile_pic.jpeg",
-            description: "I am Scarlette, how are you",
-            userId: "4"
-        },
-        {
-            name: "Michael Jackson",
-            image: "https://twinhub.s3.us-east-2.amazonaws.com/74/profile_pic.jpeg",
-            description: "I am Michael, how are you",
-            userId: "7"
-        },
-        {
-            name: "Donald Trump",
-            image: "https://twinhub.s3.us-east-2.amazonaws.com/74/profile_pic.jpeg",
-            description: "I am Dona, how are you",
-            userId: "9"
-        }
-    ])
-
     const [search, setSearch] = useState("")
+
+    const contextData = useContext(AppContext)
+    console.log("isAuth: ", contextData?.isAuthorized)
+    const personas = contextData?.personas
 
     return (
         <Box p={4} mt={"80px"} color={"#FFF"}>
@@ -103,21 +78,14 @@ const Dashboard = () => {
                     </InputGroup>
                 </Flex>
             </Stack>
-
             <Container maxW={"5xl"} mt={12}>
                 <Flex flexWrap="wrap" gridGap={6} justify="center">
-                    {users
-                        .filter((val) =>
+                    {personas
+                        ?.filter((val) =>
                             val.name.toLowerCase().includes(search)
                         )
-                        .map((el, key) => (
-                            <UserCard
-                                key={`${key}`}
-                                name={el.name}
-                                image={el.image}
-                                description={el.description}
-                                userId={el.userId}
-                            />
+                        ?.map((el, key) => (
+                            <UserCard key={`${key}`} {...el} />
                         ))}
                 </Flex>
             </Container>
