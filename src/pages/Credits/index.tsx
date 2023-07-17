@@ -12,7 +12,7 @@ import PriceSlider from "./Components/PriceSlider"
 import { useContext, useState } from "react"
 import { FcCheckmark } from "react-icons/fc"
 import { loadStripe } from "@stripe/stripe-js"
-import { AppContext, BackendUrl } from "constants"
+import { AppContext, BackendUrl } from "../../constants"
 import { Navigate } from "react-router-dom"
 
 const Credits = () => {

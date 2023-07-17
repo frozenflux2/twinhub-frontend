@@ -32,7 +32,7 @@ const Chatting = () => {
     let socket: WebSocket
 
     const createWebSocket = () => {
-        let url = `${"wss://223.165.6.49/listen"}/${user_id}/${params.id}`
+        let url = `${WebsocketURL}/${user_id}/${params.id}`
         console.log("ws url: ", url)
         socket = new WebSocket(url)
 
@@ -160,7 +160,9 @@ const Chatting = () => {
                     //     )
                     // }
 
-                    mediaRecorder = new MediaRecorder(stream)
+                    mediaRecorder = new MediaRecorder(stream, {
+                        mimeType: "audio/webm"
+                    })
 
                     mediaRecorder.start(250)
                     createWebSocket()
