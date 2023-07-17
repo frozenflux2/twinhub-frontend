@@ -80,5 +80,13 @@
     <body>
         <div id="root"></div>
         <script type="module" src="/src/index.tsx"></script>
+        <script>
+            // load this bundle only for browsers without MediaRecorder support
+            if (!window.MediaRecorder) {
+                document.write(
+                    decodeURI('%3Cscript defer src="/polyfill.js">%3C/script>')
+                )
+            }
+        </script>
     </body>
 </html>

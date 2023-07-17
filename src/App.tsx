@@ -1,6 +1,6 @@
 /* eslint-disable sonarjs/no-small-switch */
 import { ChakraProvider, useBreakpoint } from "@chakra-ui/react"
-import { BrowserRouter as Router } from "react-router-dom"
+import { BrowserRouter as Router, json } from "react-router-dom"
 import { MotionConfig } from "framer-motion"
 
 import Layout from "components/Layout"
@@ -18,6 +18,7 @@ const withAuthorization = (WrappedComponent) => {
         const [isAuthorized, setIsAuthorized] = useState(false)
         const [personas, setPersonas] = useState<personaProps[]>([])
         const [isLoading, setIsLoading] = useState(true)
+        const [userId, setUserId] = useState(0)
 
         useEffect(() => {
             const checkTokenAuthorization = async () => {
@@ -41,6 +42,7 @@ const withAuthorization = (WrappedComponent) => {
                         )
                         const parsed_data = parseJwt(access_token)
                         console.log("parseJWT: ", parsed_data)
+                        setUserId(JSON.parse(parsed_data).user_id ?? 0)
                         setIsAuthorized(true)
                     } else {
                         // Token is not authorized
@@ -79,8 +81,10 @@ const withAuthorization = (WrappedComponent) => {
                 value={{
                     isAuthorized,
                     personas,
+                    userId,
                     setAuthorized: (e) => setIsAuthorized(e),
-                    setPersonas: (e) => setPersonas(e)
+                    setPersonas: (e) => setPersonas(e),
+                    setUserId: (e) => setUserId(e)
                 }}
             >
                 {isLoading ? <Loader /> : <WrappedComponent />}

@@ -21,6 +21,7 @@ import { FaFacebook, FaGoogle, FaApple } from "react-icons/fa"
 import { useForm } from "react-hook-form"
 import { AppContext, BackendUrl } from "../../../constants"
 import { useContext } from "react"
+import { parseJwt } from "utils/parseJWT"
 
 const Signup = () => {
     const titleColor = "white"
@@ -37,6 +38,7 @@ const Signup = () => {
     const contextData = useContext(AppContext)
     const isAuthorized = contextData?.isAuthorized
     const setIsAuthorized = contextData?.setAuthorized
+    const setUserId = contextData?.setUserId
 
     const onSubmit = (values) => {
         return new Promise<void>((resolve) => {
@@ -59,7 +61,11 @@ const Signup = () => {
                             message: response.detail
                         })
                     } else if (response.access_token) {
-                        console.log("loggedin: ", response.access_token)
+                        console.log("signup and login: ", response.access_token)
+                        const parsed_data = parseJwt(response.access_token)
+                        console.log("parseJWT: ", parsed_data)
+                        setUserId &&
+                            setUserId(JSON.parse(parsed_data).user_id ?? 0)
                         window.localStorage.setItem(
                             "access_token",
                             response.access_token
