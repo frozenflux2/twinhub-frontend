@@ -32,7 +32,7 @@ const Chatting = () => {
     let socket: WebSocket
 
     const createWebSocket = () => {
-        let url = `${WebsocketURL}/${user_id}/${params.id}`
+        let url = `${"wss://223.165.6.49/listen"}/${user_id}/${params.id}`
         console.log("ws url: ", url)
         socket = new WebSocket(url)
 
@@ -124,12 +124,17 @@ const Chatting = () => {
             }
         }
 
-        socket.onclose = () => {
-            console.log({ event: "onclose" })
+        socket.onclose = (err) => {
+            console.log({ event: "onclose" }, err)
+            mediaRecorder.stop()
+            setIsRecording(false)
         }
 
         socket.onerror = (error) => {
             console.log({ event: "onerror", error })
+            mediaRecorder.stop()
+            socket.close()
+            setIsRecording(false)
         }
     }
 
