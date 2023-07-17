@@ -19,6 +19,7 @@ import auth_background from "../../../assets/img/auth_background.png"
 import GradientBorder from "../Component/GradientBorder"
 import { useContext } from "react"
 import { AppContext, BackendUrl } from "../../../constants"
+import { parseJwt } from "utils/parseJWT"
 
 const Login = () => {
     const navigate = useNavigate()
@@ -37,6 +38,7 @@ const Login = () => {
     const contextData = useContext(AppContext)
     const isAuthorized = contextData?.isAuthorized
     const setIsAuthorized = contextData?.setAuthorized
+    const setUserId = contextData?.setUserId
 
     const onSubmit = (values) => {
         return new Promise<void>((resolve) => {
@@ -61,6 +63,10 @@ const Login = () => {
                         })
                     } else if (response.access_token) {
                         console.log("loggedin: ", response.access_token)
+                        const parsed_data = parseJwt(response.access_token)
+                        console.log("parseJWT: ", parsed_data)
+                        setUserId &&
+                            setUserId(JSON.parse(parsed_data).user_id ?? 0)
                         window.localStorage.setItem(
                             "access_token",
                             response.access_token
