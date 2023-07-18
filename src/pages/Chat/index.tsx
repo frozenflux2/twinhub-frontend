@@ -124,12 +124,17 @@ const Chatting = () => {
             }
         }
 
-        socket.onclose = () => {
-            console.log({ event: "onclose" })
+        socket.onclose = (err) => {
+            console.log({ event: "onclose" }, err)
+            mediaRecorder.stop()
+            setIsRecording(false)
         }
 
         socket.onerror = (error) => {
             console.log({ event: "onerror", error })
+            mediaRecorder.stop()
+            socket.close()
+            setIsRecording(false)
         }
     }
 
@@ -155,7 +160,9 @@ const Chatting = () => {
                     //     )
                     // }
 
-                    mediaRecorder = new MediaRecorder(stream)
+                    mediaRecorder = new MediaRecorder(stream, {
+                        mimeType: "audio/webm"
+                    })
 
                     mediaRecorder.start(250)
                     createWebSocket()
