@@ -2,6 +2,7 @@
 import { ChakraProvider, useBreakpoint } from "@chakra-ui/react"
 import { BrowserRouter as Router, json } from "react-router-dom"
 import { MotionConfig } from "framer-motion"
+import { GoogleOAuthProvider } from "@react-oauth/google"
 
 import Layout from "components/Layout"
 import RouterSetup from "components/Router/RouterSetup"
@@ -9,7 +10,12 @@ import themeAdmin from "theme/themeAdmin"
 
 import "react-toastify/dist/ReactToastify.css"
 import { useEffect, useState } from "react"
-import { AppContext, BackendUrl, personaProps } from "./constants"
+import {
+    AppContext,
+    BackendUrl,
+    GoogleAuthClientID,
+    personaProps
+} from "./constants"
 import Loader from "components/Loader"
 import { parseJwt } from "utils/parseJWT"
 
@@ -48,6 +54,7 @@ const withAuthorization = (WrappedComponent) => {
                         // Token is not authorized
                         console.log("no auth", await response.json())
                         setIsAuthorized(false)
+                        window.localStorage.clear()
                     }
                 } catch (error) {
                     console.error(
@@ -55,6 +62,7 @@ const withAuthorization = (WrappedComponent) => {
                         error
                     )
                     setIsAuthorized(false)
+                    window.localStorage.clear()
                 }
             }
 
@@ -77,18 +85,20 @@ const withAuthorization = (WrappedComponent) => {
         }, [])
 
         return (
-            <AppContext.Provider
-                value={{
-                    isAuthorized,
-                    personas,
-                    userId,
-                    setAuthorized: (e) => setIsAuthorized(e),
-                    setPersonas: (e) => setPersonas(e),
-                    setUserId: (e) => setUserId(e)
-                }}
-            >
-                {isLoading ? <Loader /> : <WrappedComponent />}
-            </AppContext.Provider>
+            <GoogleOAuthProvider clientId={GoogleAuthClientID}>
+                <AppContext.Provider
+                    value={{
+                        isAuthorized,
+                        personas,
+                        userId,
+                        setAuthorized: (e) => setIsAuthorized(e),
+                        setPersonas: (e) => setPersonas(e),
+                        setUserId: (e) => setUserId(e)
+                    }}
+                >
+                    {isLoading ? <Loader /> : <WrappedComponent />}
+                </AppContext.Provider>
+            </GoogleOAuthProvider>
         )
     }
 
