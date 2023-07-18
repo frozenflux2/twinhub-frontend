@@ -86,8 +86,32 @@ const Login = () => {
     }
 
     const handleGoogleLogin = useGoogleLogin({
-        onSuccess: (tokenResponse) =>
-            console.log("google login:", tokenResponse),
+        onSuccess: (tokenResponse) => {
+            console.log("google login:", tokenResponse)
+            fetch(
+                `${BackendUrl}/google_token?token=${tokenResponse.access_token}`
+            )
+                .then((response) => response.json())
+                .then((response) => {
+                    if (response.detail) {
+                        console.error("error: ", response.detail)
+                    } else if (response.access_token) {
+                        console.log("loggedin: ", response.access_token)
+                        const parsed_data = parseJwt(response.access_token)
+                        console.log("parseJWT: ", parsed_data)
+                        setUserId &&
+                            setUserId(JSON.parse(parsed_data).user_id ?? 0)
+                        window.localStorage.setItem(
+                            "access_token",
+                            response.access_token
+                        )
+                        setIsAuthorized && setIsAuthorized(true)
+                    }
+                })
+                .catch((err) => {
+                    console.error("failed to login: ", err)
+                })
+        },
         onError: (err) => {
             console.log("Login Failed: ", err)
         }
