@@ -2,7 +2,7 @@
 import { ChakraProvider, useBreakpoint } from "@chakra-ui/react"
 import { BrowserRouter as Router, json } from "react-router-dom"
 import { MotionConfig } from "framer-motion"
-import { GoogleOAuthProvider } from "@react-oauth/google"
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google"
 
 import Layout from "components/Layout"
 import RouterSetup from "components/Router/RouterSetup"
@@ -97,6 +97,19 @@ const withAuthorization = (WrappedComponent) => {
                     }}
                 >
                     {isLoading ? <Loader /> : <WrappedComponent />}
+                    {/* {isAuthorized ? (
+                        <></>
+                    ) : (
+                        <GoogleLogin
+                            onSuccess={(credentialResponse) => {
+                                console.log(credentialResponse)
+                            }}
+                            onError={() => {
+                                console.log("Login Failed")
+                            }}
+                            useOneTap
+                        />
+                    )} */}
                 </AppContext.Provider>
             </GoogleOAuthProvider>
         )

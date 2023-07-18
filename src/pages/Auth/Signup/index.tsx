@@ -22,6 +22,7 @@ import { useForm } from "react-hook-form"
 import { AppContext, BackendUrl } from "../../../constants"
 import { useContext } from "react"
 import { parseJwt } from "utils/parseJWT"
+import { useGoogleLogin } from "@react-oauth/google"
 
 const Signup = () => {
     const titleColor = "white"
@@ -39,6 +40,38 @@ const Signup = () => {
     const isAuthorized = contextData?.isAuthorized
     const setIsAuthorized = contextData?.setAuthorized
     const setUserId = contextData?.setUserId
+
+    const handleGoogleLogin = useGoogleLogin({
+        onSuccess: (tokenResponse) => {
+            console.log("google login:", tokenResponse)
+            fetch(
+                `${BackendUrl}/google_token?token=${tokenResponse.access_token}`
+            )
+                .then((response) => response.json())
+                .then((response) => {
+                    if (response.detail) {
+                        console.error("error: ", response.detail)
+                    } else if (response.access_token) {
+                        console.log("loggedin: ", response.access_token)
+                        const parsed_data = parseJwt(response.access_token)
+                        console.log("parseJWT: ", parsed_data)
+                        setUserId &&
+                            setUserId(JSON.parse(parsed_data).user_id ?? 0)
+                        window.localStorage.setItem(
+                            "access_token",
+                            response.access_token
+                        )
+                        setIsAuthorized && setIsAuthorized(true)
+                    }
+                })
+                .catch((err) => {
+                    console.error("failed to login: ", err)
+                })
+        },
+        onError: (err) => {
+            console.log("Login Failed: ", err)
+        }
+    })
 
     const onSubmit = (values) => {
         return new Promise<void>((resolve) => {
@@ -162,7 +195,7 @@ const Signup = () => {
                             >
                                 Register With
                             </Text>
-                            <HStack spacing="15px" justify="center" mb="22px">
+                            <HStack spacing="40px" justify="center" mb="22px">
                                 <GradientBorder borderRadius="15px">
                                     <Flex
                                         _hover={{ filter: "brightness(120%)" }}
@@ -174,18 +207,17 @@ const Signup = () => {
                                         w="71px"
                                         h="71px"
                                         borderRadius="15px"
+                                        onClick={() => handleGoogleLogin()}
                                     >
-                                        <Link href="#">
-                                            <Icon
-                                                color={titleColor}
-                                                as={FaFacebook}
-                                                w="30px"
-                                                h="30px"
-                                                _hover={{
-                                                    filter: "brightness(120%)"
-                                                }}
-                                            />
-                                        </Link>
+                                        <Icon
+                                            color={titleColor}
+                                            as={FaGoogle}
+                                            w="30px"
+                                            h="30px"
+                                            _hover={{
+                                                filter: "brightness(120%)"
+                                            }}
+                                        />
                                     </Flex>
                                 </GradientBorder>
                                 <GradientBorder borderRadius="15px">
@@ -204,31 +236,6 @@ const Signup = () => {
                                             <Icon
                                                 color={titleColor}
                                                 as={FaApple}
-                                                w="30px"
-                                                h="30px"
-                                                _hover={{
-                                                    filter: "brightness(120%)"
-                                                }}
-                                            />
-                                        </Link>
-                                    </Flex>
-                                </GradientBorder>
-                                <GradientBorder borderRadius="15px">
-                                    <Flex
-                                        _hover={{ filter: "brightness(120%)" }}
-                                        transition="all .25s ease"
-                                        cursor="pointer"
-                                        justify="center"
-                                        align="center"
-                                        bg="rgb(19,21,54)"
-                                        w="71px"
-                                        h="71px"
-                                        borderRadius="15px"
-                                    >
-                                        <Link href="#">
-                                            <Icon
-                                                color={titleColor}
-                                                as={FaGoogle}
                                                 w="30px"
                                                 h="30px"
                                                 _hover={{
