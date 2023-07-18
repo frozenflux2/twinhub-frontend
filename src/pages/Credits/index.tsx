@@ -13,7 +13,7 @@ import { useContext, useState } from "react"
 import { FcCheckmark } from "react-icons/fc"
 import { loadStripe } from "@stripe/stripe-js"
 import { AppContext, BackendUrl } from "../../constants"
-import { Navigate } from "react-router-dom"
+import { Navigate, useLocation } from "react-router-dom"
 
 const Credits = () => {
     const contextData = useContext(AppContext)
@@ -27,31 +27,34 @@ const Credits = () => {
         "pk_test_51NGPlbEA0RyojNxJP7pQz7n8TLRs8HEAbdMRS62z9QnujnPJcvAQ7lyGTPP6lrtqB5Gd4zZ5kUsSUCT5HcgVRG0V00INg4CBoC"
     const stripe = loadStripe(stripe_test)
 
+    const { pathname } = useLocation()
+
     const handleStripe = () => {
         const amountInCents = totalPrice * sliderValue
 
-        // fetch(`${BackendUrl}/checkout`, {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify({
-        //         amount: amountInCents,
-        //         user_id: user_id
-        //     })
-        // })
-        //     .then((response) => {
-        //         return response.json()
-        //     })
-        //     .then((data) => {
-        //         stripe
-        //             .redirectToCheckout({
-        //                 sessionId: data.sessionId
-        //             })
-        //             .then((result) => {
-        //                 console.log(result.error.message)
-        //             })
-        //     })
+        fetch(`${BackendUrl}/checkout`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                amount: amountInCents,
+                user_id: user_id
+            })
+        })
+            .then((response) => {
+                return response.json()
+            })
+            .then((data) => {
+                console.log("success")
+                window.location.href = `https://checkout.stripe.com/c/pay/${data.sessionId}#fidkdWxOYHwnPyd1blpxYHZxWjA0S0JVaWdARDVXfGpvS31PVTJ1VH8yaz1RSVd2PU1ARGdhSFdWMzd%2FPFRrcG9rVU9mc0RUMml8QlFVVTNpd3F0RzBCYTF%2FXzBuUHZWUEZRME1mYlNXQjVTNTVMS2IxRkdqRicpJ2hsYXYnP34nYnBsYSc%2FJ2RjZ2NgYGYzKGAxZzUoMTNjZChnNTMyKGRmYDQ1PGBnMmQ3PWZgPDFjZicpJ2hwbGEnPycxYzE8Zzc8PCg1PTQxKDEyM2YoPGAzYyhgYDU8NTJkNmE0ZDA3NjQwNDMnKSd2bGEnPyczZGMwZzI3Yyg0NTxgKDE1YTMoPGYxNygyNGNgNzFnMjAxPDYzZmRhZGAneCknZ2BxZHYnP15YKSdpZHxqcHFRfHVgJz8ndmxrYmlgWmxxYGgnKSd3YGNgd3dgd0p3bGJsayc%2FJ21xcXV2PyoqNzc2KzQzMCszKzE8J3gl`
+                // navigate(
+                //     `https://checkout.stripe.com/c/pay/${data.sessionId}#fidkdWxOYHwnPyd1blpxYHZxWjA0S0JVaWdARDVXfGpvS31PVTJ1VH8yaz1RSVd2PU1ARGdhSFdWMzd%2FPFRrcG9rVU9mc0RUMml8QlFVVTNpd3F0RzBCYTF%2FXzBuUHZWUEZRME1mYlNXQjVTNTVMS2IxRkdqRicpJ2hsYXYnP34nYnBsYSc%2FJ2RjZ2NgYGYzKGAxZzUoMTNjZChnNTMyKGRmYDQ1PGBnMmQ3PWZgPDFjZicpJ2hwbGEnPycxYzE8Zzc8PCg1PTQxKDEyM2YoPGAzYyhgYDU8NTJkNmE0ZDA3NjQwNDMnKSd2bGEnPyczZGMwZzI3Yyg0NTxgKDE1YTMoPGYxNygyNGNgNzFnMjAxPDYzZmRhZGAneCknZ2BxZHYnP15YKSdpZHxqcHFRfHVgJz8ndmxrYmlgWmxxYGgnKSd3YGNgd3dgd0p3bGJsayc%2FJ21xcXV2PyoqNzc2KzQzMCszKzE8J3gl`
+                // )
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 
     return isAuthorized ? (
@@ -86,6 +89,7 @@ const Credits = () => {
                     fontSize="1.2em"
                     marginTop={10}
                     marginBottom={10}
+                    onClick={() => handleStripe()}
                 >
                     Checkout
                 </Button>
