@@ -11,18 +11,29 @@ import {
     Icon,
     DarkMode,
     Switch,
-    FormErrorMessage
+    FormErrorMessage,
+    Image
 } from "@chakra-ui/react"
 import { motion } from "framer-motion"
 import { useNavigate, Link as RounterLink, Navigate } from "react-router-dom"
 import auth_background from "../../../assets/img/auth_background.png"
 import GradientBorder from "../Component/GradientBorder"
-import { FaFacebook, FaGoogle, FaApple } from "react-icons/fa"
+import {
+    FaFacebook,
+    FaGoogle,
+    FaApple,
+    FaDiscord,
+    FaTelegram,
+    FaInstagram,
+    FaTiktok,
+    FaYoutube
+} from "react-icons/fa"
 import { useForm } from "react-hook-form"
 import { AppContext, BackendUrl } from "../../../constants"
 import { useContext } from "react"
 import { parseJwt } from "utils/parseJWT"
 import { useGoogleLogin } from "@react-oauth/google"
+import Logo from "../../../assets/img/auth_logo.png"
 
 const Signup = () => {
     const titleColor = "white"
@@ -143,7 +154,7 @@ const Signup = () => {
                         textAlign="center"
                         justifyContent="center"
                         align="center"
-                        mt={{ base: "60px", md: "140px", lg: "200px" }}
+                        mt={{ base: "60px", md: "140px" }}
                         mb="50px"
                     >
                         <Text
@@ -166,8 +177,7 @@ const Signup = () => {
                                 xl: "80%"
                             }}
                         >
-                            Use these awesome forms to login or create new
-                            account in your project for free.
+                            Starting chatting with your favorite influencers now
                         </Text>
                     </Flex>
                     <GradientBorder
@@ -473,6 +483,52 @@ const Signup = () => {
                             </form>
                         </Flex>
                     </GradientBorder>
+                    <Flex
+                        direction={"column"}
+                        alignItems={"center"}
+                        gap={"10px"}
+                        mt={"10px"}
+                    >
+                        <Text>Contact Us</Text>
+                        <Flex gap={"10px"} fontSize={"30px"} color={"#4C368D"}>
+                            <a
+                                href="https://t.me/+w_GZc7AEtsxiM2Fh"
+                                target="_blank"
+                            >
+                                <FaTelegram />
+                            </a>
+                            <a
+                                href="https://discord.gg/DNjbDrFM"
+                                target="_blank"
+                            >
+                                <FaDiscord />
+                            </a>
+                            <a
+                                href="https://www.instagram.com/twinhub.ai/?igshid=YmM0MjE2YWMzOA"
+                                target="_blank"
+                            >
+                                <FaInstagram />
+                            </a>
+                            <a
+                                href="https://www.tiktok.com/@twinhub.ai"
+                                target="_blank"
+                            >
+                                <FaTiktok />
+                            </a>
+                            <a
+                                href="https://www.youtube.com/channel/UC5pCim57xW170qjDsPusOYQ"
+                                target="_blank"
+                            >
+                                <FaYoutube />
+                            </a>
+                            <a
+                                href="https://www.facebook.com/people/TwinHub/100093399862136/"
+                                target="_blank"
+                            >
+                                <FaFacebook />
+                            </a>
+                        </Flex>
+                    </Flex>
                 </Flex>
                 {/* <Box
                     w={{ base: "335px", md: "450px" }}
@@ -485,8 +541,9 @@ const Signup = () => {
                 <Box
                     display={{ base: "none", lg: "block" }}
                     overflowX="hidden"
-                    h="1300px"
-                    maxW={{ md: "50vw", lg: "48vw" }}
+                    h="100%"
+                    maxW={{ md: "50vw", lg: "50vw" }}
+                    minH="100vh"
                     w="960px"
                     position="absolute"
                     left="0px"
@@ -494,7 +551,7 @@ const Signup = () => {
                     <Box
                         bgImage={auth_background}
                         w="100%"
-                        h="1300px"
+                        h="100%"
                         bgSize="cover"
                         bgPosition="50%"
                         position="absolute"
@@ -503,25 +560,31 @@ const Signup = () => {
                         justifyContent="center"
                         alignItems="center"
                     >
+                        <Image src={Logo} alt="TwinHub" />
                         <Text
                             textAlign="center"
-                            color="white"
+                            color="#7A8AEE"
                             letterSpacing="8px"
-                            fontSize="20px"
+                            fontSize="16px"
                             fontWeight="500"
+                            mt={"24px"}
                         >
                             INSPIRED BY THE FUTURE:
                         </Text>
                         <Text
+                            mt={"10.8px"}
                             textAlign="center"
                             color="transparent"
-                            letterSpacing="8px"
-                            fontSize="36px"
-                            fontWeight="bold"
+                            letterSpacing="5.12px"
+                            fontSize="25.6px"
+                            fontWeight="500"
+                            lineHeight={"normal"}
                             bgClip="text !important"
                             bg="linear-gradient(94.56deg, #FFFFFF 79.99%, #21242F 102.65%)"
                         >
-                            THE VISION UI DASHBOARD
+                            The world’s most engaging AI
+                            <br />
+                            influencers platform
                         </Text>
                     </Box>
                 </Box>
