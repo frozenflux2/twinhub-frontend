@@ -80,12 +80,13 @@ const Dashboard = () => {
             </Stack>
             <Container
                 maxW={{
-                    base: "100%"
-                    // lg: "80%"
+                    base: "100%",
+                    lg: "80%",
+                    "2xl": "60%"
                 }}
                 mt={12}
             >
-                <Flex flexWrap="wrap" gridGap={6} justify="center">
+                <Flex flexWrap="wrap" gridGap={"6px"} justify="center">
                     {personas
                         ?.filter((val) =>
                             val.name.toLowerCase().includes(search)
