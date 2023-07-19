@@ -1,9 +1,18 @@
-import { Button, Center, Heading, Image } from "@chakra-ui/react"
+import {
+    Button,
+    Center,
+    Flex,
+    Heading,
+    IconButton,
+    Image,
+    Text
+} from "@chakra-ui/react"
 import { AppContext, BackendUrl, WebsocketURL } from "../../constants"
 import { RefObject, createRef, useContext, useEffect, useState } from "react"
 import { Navigate, useNavigate, useParams } from "react-router-dom"
 import AudioRecorder from "audio-recorder-polyfill"
 import Loader from "components/Loader"
+import { PhoneIcon } from "@chakra-ui/icons"
 
 window.MediaRecorder = AudioRecorder
 
@@ -73,7 +82,7 @@ const Chatting = () => {
             }
 
             // Create a Blob from the audio data
-            var audioBlob = new Blob([audioArrayBuffer], { type: "audio/wav" })
+            var audioBlob = new Blob([audioArrayBuffer], { type: "audio/mp3" })
 
             // Add the audio data to the queue
             audioQueue.push({ transcript: transcript, audioBlob: audioBlob })
@@ -160,9 +169,7 @@ const Chatting = () => {
                     //     )
                     // }
 
-                    mediaRecorder = new MediaRecorder(stream, {
-                        mimeType: "audio/mp3"
-                    })
+                    mediaRecorder = new MediaRecorder(stream)
 
                     mediaRecorder.start(250)
                     createWebSocket()
@@ -221,21 +228,71 @@ const Chatting = () => {
                     w={"300px"}
                     h={"300px"}
                     rounded={"full"}
+                    border={"4px solid rgba(255, 255, 255, 0.16)"}
                 />
-                <Button
-                    p={"12px 24px"}
-                    onClick={() => {
-                        if (isRecording) {
-                            mediaRecorder.stop()
-                            socket.close()
-                            setIsRecording(false)
-                        } else {
-                            setIsRecording(true)
-                        }
-                    }}
-                >
-                    {isRecording ? "Hang up" : "Call"}
-                </Button>
+                {isRecording ? (
+                    <Flex alignItems={"center"}>
+                        <Button
+                            p={"12px 24px"}
+                            onClick={() => {
+                                if (isRecording) {
+                                    mediaRecorder.stop()
+                                    socket.close()
+                                    setIsRecording(false)
+                                } else {
+                                    setIsRecording(true)
+                                }
+                            }}
+                            w={"152px"}
+                            border={"1px solid #DF3119"}
+                            pr={"36px"}
+                        >
+                            <Text>Hang up</Text>
+                        </Button>
+                        <IconButton
+                            aria-label={"Call"}
+                            icon={<PhoneIcon />}
+                            size={"lg"}
+                            bgColor={"#DF3119 !important"}
+                            zIndex={1}
+                            _hover={{
+                                filter: "none"
+                            }}
+                            ml={"-24px"}
+                        />
+                    </Flex>
+                ) : (
+                    <Flex alignItems={"center"}>
+                        <IconButton
+                            aria-label={"Call"}
+                            icon={<PhoneIcon />}
+                            size={"lg"}
+                            bgColor={"#0BB512 !important"}
+                            zIndex={1}
+                            _hover={{
+                                filter: "none"
+                            }}
+                            mr={"-24px"}
+                        />
+                        <Button
+                            p={"12px 24px"}
+                            onClick={() => {
+                                if (isRecording) {
+                                    mediaRecorder.stop()
+                                    socket.close()
+                                    setIsRecording(false)
+                                } else {
+                                    setIsRecording(true)
+                                }
+                            }}
+                            w={"152px"}
+                            border={"1px solid #0BB512"}
+                            pl={"36px"}
+                        >
+                            <Text>CALL</Text>
+                        </Button>
+                    </Flex>
+                )}
             </Center>
         )
     ) : (
