@@ -37,7 +37,7 @@ const Chatting = () => {
         socket = new WebSocket(url)
 
         socket.onopen = () => {
-            console.log("socket open: ", url)
+            console.log("debug socket open: ", url)
             mediaRecorder.addEventListener("dataavailable", async (event) => {
                 if (event.data.size > 0 && socket.readyState == 1) {
                     console.log("data availabe: ", event.data)
@@ -125,13 +125,13 @@ const Chatting = () => {
         }
 
         socket.onclose = (err) => {
-            console.log({ event: "onclose" }, err)
+            console.log("debug socket close: ", err)
             mediaRecorder.stop()
             setIsRecording(false)
         }
 
         socket.onerror = (error) => {
-            console.log({ event: "onerror", error })
+            console.log("debug socket error: ", error)
             mediaRecorder.stop()
             socket.close()
             setIsRecording(false)
@@ -171,6 +171,14 @@ const Chatting = () => {
                     console.error("can't catch audio device :(", err)
                     setIsRecording(false)
                 })
+        }
+
+        return () => {
+            try {
+                socket.close()
+            } catch (error) {
+                console.error("debug socket error: ", error)
+            }
         }
     }, [isRecording])
 
