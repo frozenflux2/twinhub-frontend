@@ -13,6 +13,7 @@ import { useEffect, useState } from "react"
 import {
     AppContext,
     BackendUrl,
+    CurrentVersion,
     GoogleAuthClientID,
     personaProps
 } from "./constants"
@@ -71,7 +72,14 @@ const withAuthorization = (WrappedComponent) => {
 
         useEffect(() => {
             const fetchPersonas = async () => {
-                fetch(BackendUrl + "/api/personas")
+                fetch(
+                    BackendUrl +
+                        `${
+                            CurrentVersion === "PREMIUM"
+                                ? "/api/personas-premium"
+                                : "/api/personas"
+                        }`
+                )
                     .then((response) => response.json())
                     .then((personas) => {
                         console.log("persons: ", personas)
