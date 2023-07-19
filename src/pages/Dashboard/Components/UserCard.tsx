@@ -21,7 +21,7 @@ const UserCard = ({ name, profile_pic_url, id }: personaProps) => {
         <Box
             maxW={{ base: "45%", md: "222px" }}
             w={"full"}
-            h={"112px"}
+            minH={"112px"}
             mt={"36px"}
             bg={
                 "linear-gradient(180deg, rgba(255, 255, 255, 0) 11.02%, rgba(255, 255, 255, 0.5) 100%)"
@@ -42,9 +42,10 @@ const UserCard = ({ name, profile_pic_url, id }: personaProps) => {
                 zIndex={1}
                 gap={"13px"}
                 flexDirection={"column"}
-                mt={"-36px"}
+                mt={"-24px"}
                 cursor={"pointer"}
                 mx={"23px"}
+                mb={"5px"}
             >
                 <Image
                     src={profile_pic_url}
