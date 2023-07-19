@@ -169,7 +169,7 @@ const Login = () => {
                         direction="column"
                         w="100%"
                         background="transparent"
-                        mb={{ base: "60px", lg: "95px" }}
+                        mb={{ base: "40px", lg: "75px" }}
                         px="50px"
                     >
                         <Text
@@ -390,6 +390,7 @@ const Login = () => {
                         direction={"column"}
                         alignItems={"center"}
                         gap={"10px"}
+                        mb={"20px"}
                     >
                         <Text>Contact Us</Text>
                         <Flex gap={"10px"} fontSize={"30px"} color={"#4C368D"}>
