@@ -12,7 +12,8 @@ import {
     Link,
     FormErrorMessage,
     HStack,
-    Icon
+    Icon,
+    Image
 } from "@chakra-ui/react"
 import { motion } from "framer-motion"
 import { useNavigate, Link as RouterLink, Navigate } from "react-router-dom"
@@ -22,14 +23,23 @@ import GradientBorder from "../Component/GradientBorder"
 import { useContext } from "react"
 import { AppContext, BackendUrl } from "../../../constants"
 import { parseJwt } from "utils/parseJWT"
-import { FaGoogle, FaFacebook } from "react-icons/fa"
+import {
+    FaGoogle,
+    FaFacebook,
+    FaTelegram,
+    FaDiscord,
+    FaInstagram,
+    FaYoutube,
+    FaTiktok
+} from "react-icons/fa"
 import { useGoogleLogin, GoogleLogin } from "@react-oauth/google"
+import Logo from "../../../assets/img/auth_logo.png"
 
 const Login = () => {
     const navigate = useNavigate()
     const handleBackToHome = () => navigate("/")
     const titleColor = "white"
-    const textColor = "gray.400"
+    const textColor = "#BAA6FF"
 
     const {
         handleSubmit,
@@ -138,28 +148,34 @@ const Login = () => {
                     mx={{ base: "auto", lg: "unset" }}
                     ms={{ base: "auto", lg: "auto" }}
                     w={{ base: "100%", md: "50%", lg: "450px" }}
-                    px="50px"
+                    flexDirection={"column"}
                 >
+                    <Heading
+                        color={titleColor}
+                        fontSize="25.6px"
+                        mb="10px"
+                        fontWeight={500}
+                        lineHeight={"normal"}
+                        textAlign={"center"}
+                        mt={{
+                            base: "50px",
+                            md: "150px"
+                        }}
+                    >
+                        Starting chatting with your favorite
+                        <br /> influencers now
+                    </Heading>
                     <Flex
                         direction="column"
                         w="100%"
                         background="transparent"
-                        mt={{
-                            base: "50px",
-                            md: "150px",
-                            lg: "160px",
-                            xl: "245px"
-                        }}
                         mb={{ base: "60px", lg: "95px" }}
+                        px="50px"
                     >
-                        <Heading color={titleColor} fontSize="32px" mb="10px">
-                            Nice to see you!
-                        </Heading>
-
                         <Text
-                            fontSize="xl"
+                            fontSize="16px"
                             color={textColor}
-                            fontWeight="bold"
+                            fontWeight="400"
                             textAlign="center"
                             mb="22px"
                         >
@@ -223,9 +239,9 @@ const Login = () => {
                             </GradientBorder>
                         </HStack>
                         <Text
-                            fontSize="lg"
-                            color="gray.400"
-                            fontWeight="bold"
+                            fontSize="16px"
+                            color={textColor}
+                            fontWeight="400"
                             textAlign="center"
                             mb="22px"
                         >
@@ -370,6 +386,51 @@ const Login = () => {
                             </Text>
                         </Flex>
                     </Flex>
+                    <Flex
+                        direction={"column"}
+                        alignItems={"center"}
+                        gap={"10px"}
+                    >
+                        <Text>Contact Us</Text>
+                        <Flex gap={"10px"} fontSize={"30px"} color={"#4C368D"}>
+                            <a
+                                href="https://t.me/+w_GZc7AEtsxiM2Fh"
+                                target="_blank"
+                            >
+                                <FaTelegram />
+                            </a>
+                            <a
+                                href="https://discord.gg/DNjbDrFM"
+                                target="_blank"
+                            >
+                                <FaDiscord />
+                            </a>
+                            <a
+                                href="https://www.instagram.com/twinhub.ai/?igshid=YmM0MjE2YWMzOA"
+                                target="_blank"
+                            >
+                                <FaInstagram />
+                            </a>
+                            <a
+                                href="https://www.tiktok.com/@twinhub.ai"
+                                target="_blank"
+                            >
+                                <FaTiktok />
+                            </a>
+                            <a
+                                href="https://www.youtube.com/channel/UC5pCim57xW170qjDsPusOYQ"
+                                target="_blank"
+                            >
+                                <FaYoutube />
+                            </a>
+                            <a
+                                href="https://www.facebook.com/people/TwinHub/100093399862136/"
+                                target="_blank"
+                            >
+                                <FaFacebook />
+                            </a>
+                        </Flex>
+                    </Flex>
                 </Flex>
                 <Box
                     display={{ base: "none", lg: "block" }}
@@ -393,25 +454,31 @@ const Login = () => {
                         justifyContent="center"
                         alignItems="center"
                     >
+                        <Image src={Logo} alt="TwinHub" />
                         <Text
                             textAlign="center"
-                            color="white"
+                            color="#7A8AEE"
                             letterSpacing="8px"
-                            fontSize="20px"
+                            fontSize="16px"
                             fontWeight="500"
+                            mt={"24px"}
                         >
                             INSPIRED BY THE FUTURE:
                         </Text>
                         <Text
+                            mt={"10.8px"}
                             textAlign="center"
                             color="transparent"
-                            letterSpacing="8px"
-                            fontSize="36px"
-                            fontWeight="bold"
+                            letterSpacing="5.12px"
+                            fontSize="25.6px"
+                            fontWeight="500"
+                            lineHeight={"normal"}
                             bgClip="text !important"
                             bg="linear-gradient(94.56deg, #FFFFFF 79.99%, #21242F 102.65%)"
                         >
-                            THE VISION UI DASHBOARD
+                            The world’s most engaging AI
+                            <br />
+                            influencers platform
                         </Text>
                     </Box>
                 </Box>
