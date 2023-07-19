@@ -82,7 +82,7 @@ const Chatting = () => {
             }
 
             // Create a Blob from the audio data
-            var audioBlob = new Blob([audioArrayBuffer], { type: "audio/wav" })
+            var audioBlob = new Blob([audioArrayBuffer], { type: "audio/mp3" })
 
             // Add the audio data to the queue
             audioQueue.push({ transcript: transcript, audioBlob: audioBlob })
@@ -169,9 +169,7 @@ const Chatting = () => {
                     //     )
                     // }
 
-                    mediaRecorder = new MediaRecorder(stream, {
-                        mimeType: "audio/mp3"
-                    })
+                    mediaRecorder = new MediaRecorder(stream)
 
                     mediaRecorder.start(250)
                     createWebSocket()
