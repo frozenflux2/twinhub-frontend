@@ -1,7 +1,8 @@
 /* eslint-disable sonarjs/no-small-switch */
 import { ChakraProvider, useBreakpoint } from "@chakra-ui/react"
-import { BrowserRouter as Router } from "react-router-dom"
+import { BrowserRouter as Router, json } from "react-router-dom"
 import { MotionConfig } from "framer-motion"
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google"
 
 import Layout from "components/Layout"
 import RouterSetup from "components/Router/RouterSetup"
@@ -9,7 +10,12 @@ import themeAdmin from "theme/themeAdmin"
 
 import "react-toastify/dist/ReactToastify.css"
 import { useEffect, useState } from "react"
-import { AppContext, BackendUrl, personaProps } from "./constants"
+import {
+    AppContext,
+    BackendUrl,
+    GoogleAuthClientID,
+    personaProps
+} from "./constants"
 import Loader from "components/Loader"
 import { parseJwt } from "utils/parseJWT"
 
@@ -18,22 +24,19 @@ const withAuthorization = (WrappedComponent) => {
         const [isAuthorized, setIsAuthorized] = useState(false)
         const [personas, setPersonas] = useState<personaProps[]>([])
         const [isLoading, setIsLoading] = useState(true)
+        const [userId, setUserId] = useState(0)
 
         useEffect(() => {
             const checkTokenAuthorization = async () => {
                 try {
-                    const response = await fetch(
-                        "http://223.165.6.49/authenticate",
-                        {
-                            method: "GET",
-                            headers: {
-                                access_token:
-                                    window.localStorage.getItem(
-                                        "access_token"
-                                    ) || ""
-                            }
+                    const response = await fetch(`${BackendUrl}/authenticate`, {
+                        method: "GET",
+                        headers: {
+                            access_token:
+                                window.localStorage.getItem("access_token") ||
+                                ""
                         }
-                    )
+                    })
                     if (response.ok) {
                         // Token is authorized
                         const result = await response.json()
@@ -43,11 +46,15 @@ const withAuthorization = (WrappedComponent) => {
                             "access_token",
                             access_token
                         )
+                        const parsed_data = parseJwt(access_token)
+                        console.log("parseJWT: ", parsed_data)
+                        setUserId(JSON.parse(parsed_data).user_id ?? 0)
                         setIsAuthorized(true)
                     } else {
                         // Token is not authorized
                         console.log("no auth", await response.json())
                         setIsAuthorized(false)
+                        window.localStorage.clear()
                     }
                 } catch (error) {
                     console.error(
@@ -55,6 +62,7 @@ const withAuthorization = (WrappedComponent) => {
                         error
                     )
                     setIsAuthorized(false)
+                    window.localStorage.clear()
                 }
             }
 
@@ -77,16 +85,33 @@ const withAuthorization = (WrappedComponent) => {
         }, [])
 
         return (
-            <AppContext.Provider
-                value={{
-                    isAuthorized,
-                    personas,
-                    setAuthorized: (e) => setIsAuthorized(e),
-                    setPersonas: (e) => setPersonas(e)
-                }}
-            >
-                {isLoading ? <Loader /> : <WrappedComponent />}
-            </AppContext.Provider>
+            <GoogleOAuthProvider clientId={GoogleAuthClientID}>
+                <AppContext.Provider
+                    value={{
+                        isAuthorized,
+                        personas,
+                        userId,
+                        setAuthorized: (e) => setIsAuthorized(e),
+                        setPersonas: (e) => setPersonas(e),
+                        setUserId: (e) => setUserId(e)
+                    }}
+                >
+                    {isLoading ? <Loader /> : <WrappedComponent />}
+                    {/* {isAuthorized ? (
+                        <></>
+                    ) : (
+                        <GoogleLogin
+                            onSuccess={(credentialResponse) => {
+                                console.log(credentialResponse)
+                            }}
+                            onError={() => {
+                                console.log("Login Failed")
+                            }}
+                            useOneTap
+                        />
+                    )} */}
+                </AppContext.Provider>
+            </GoogleOAuthProvider>
         )
     }
 

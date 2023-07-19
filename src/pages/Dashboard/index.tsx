@@ -78,7 +78,13 @@ const Dashboard = () => {
                     </InputGroup>
                 </Flex>
             </Stack>
-            <Container maxW={"5xl"} mt={12}>
+            <Container
+                maxW={{
+                    base: "100%"
+                    // lg: "80%"
+                }}
+                mt={12}
+            >
                 <Flex flexWrap="wrap" gridGap={6} justify="center">
                     {personas
                         ?.filter((val) =>

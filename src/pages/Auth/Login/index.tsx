@@ -10,7 +10,9 @@ import {
     Switch,
     Button,
     Link,
-    FormErrorMessage
+    FormErrorMessage,
+    HStack,
+    Icon
 } from "@chakra-ui/react"
 import { motion } from "framer-motion"
 import { useNavigate, Link as RouterLink, Navigate } from "react-router-dom"
@@ -19,10 +21,12 @@ import auth_background from "../../../assets/img/auth_background.png"
 import GradientBorder from "../Component/GradientBorder"
 import { useContext } from "react"
 import { AppContext, BackendUrl } from "../../../constants"
+import { parseJwt } from "utils/parseJWT"
+import { FaGoogle, FaFacebook } from "react-icons/fa"
+import { useGoogleLogin, GoogleLogin } from "@react-oauth/google"
 
 const Login = () => {
     const navigate = useNavigate()
-
     const handleBackToHome = () => navigate("/")
     const titleColor = "white"
     const textColor = "gray.400"
@@ -37,6 +41,7 @@ const Login = () => {
     const contextData = useContext(AppContext)
     const isAuthorized = contextData?.isAuthorized
     const setIsAuthorized = contextData?.setAuthorized
+    const setUserId = contextData?.setUserId
 
     const onSubmit = (values) => {
         return new Promise<void>((resolve) => {
@@ -61,6 +66,10 @@ const Login = () => {
                         })
                     } else if (response.access_token) {
                         console.log("loggedin: ", response.access_token)
+                        const parsed_data = parseJwt(response.access_token)
+                        console.log("parseJWT: ", parsed_data)
+                        setUserId &&
+                            setUserId(JSON.parse(parsed_data).user_id ?? 0)
                         window.localStorage.setItem(
                             "access_token",
                             response.access_token
@@ -75,6 +84,38 @@ const Login = () => {
                 })
         })
     }
+
+    const handleGoogleLogin = useGoogleLogin({
+        onSuccess: (tokenResponse) => {
+            console.log("google login:", tokenResponse)
+            fetch(
+                `${BackendUrl}/google_token?token=${tokenResponse.access_token}`
+            )
+                .then((response) => response.json())
+                .then((response) => {
+                    if (response.detail) {
+                        console.error("error: ", response.detail)
+                    } else if (response.access_token) {
+                        console.log("loggedin: ", response.access_token)
+                        const parsed_data = parseJwt(response.access_token)
+                        console.log("parseJWT: ", parsed_data)
+                        setUserId &&
+                            setUserId(JSON.parse(parsed_data).user_id ?? 0)
+                        window.localStorage.setItem(
+                            "access_token",
+                            response.access_token
+                        )
+                        setIsAuthorized && setIsAuthorized(true)
+                    }
+                })
+                .catch((err) => {
+                    console.error("failed to login: ", err)
+                })
+        },
+        onError: (err) => {
+            console.log("Login Failed: ", err)
+        }
+    })
 
     return isAuthorized ? (
         <Navigate to={"/index"} />
@@ -114,14 +155,81 @@ const Login = () => {
                         <Heading color={titleColor} fontSize="32px" mb="10px">
                             Nice to see you!
                         </Heading>
+
                         <Text
-                            mb="36px"
-                            ms="4px"
+                            fontSize="xl"
                             color={textColor}
                             fontWeight="bold"
-                            fontSize="14px"
+                            textAlign="center"
+                            mb="22px"
                         >
-                            Enter your email and password to sign in
+                            Login With
+                        </Text>
+                        <HStack spacing="40px" justify="center" mb="22px">
+                            {/* <GoogleLogin
+                                onSuccess={(credentialResponse) => {
+                                    console.log(credentialResponse)
+                                }}
+                                onError={() => {
+                                    console.log("Login Failed")
+                                }}
+                            /> */}
+                            <GradientBorder borderRadius="15px">
+                                <Flex
+                                    _hover={{ filter: "brightness(120%)" }}
+                                    transition="all .25s ease"
+                                    cursor="pointer"
+                                    justify="center"
+                                    align="center"
+                                    bg="rgb(19,21,54)"
+                                    w="71px"
+                                    h="71px"
+                                    borderRadius="15px"
+                                    onClick={() => handleGoogleLogin()}
+                                >
+                                    <Icon
+                                        color={titleColor}
+                                        as={FaGoogle}
+                                        w="30px"
+                                        h="30px"
+                                        _hover={{
+                                            filter: "brightness(120%)"
+                                        }}
+                                    />
+                                </Flex>
+                            </GradientBorder>
+                            <GradientBorder borderRadius="15px">
+                                <Flex
+                                    _hover={{ filter: "brightness(120%)" }}
+                                    transition="all .25s ease"
+                                    cursor="pointer"
+                                    justify="center"
+                                    align="center"
+                                    bg="rgb(19,21,54)"
+                                    w="71px"
+                                    h="71px"
+                                    borderRadius="15px"
+                                >
+                                    <Icon
+                                        color={titleColor}
+                                        as={FaFacebook}
+                                        w="30px"
+                                        h="30px"
+                                        _hover={{
+                                            filter: "brightness(120%)"
+                                        }}
+                                    />
+                                </Flex>
+                            </GradientBorder>
+                        </HStack>
+                        <Text
+                            fontSize="lg"
+                            color="gray.400"
+                            fontWeight="bold"
+                            textAlign="center"
+                            mb="22px"
+                        >
+                            or
                         </Text>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <FormControl isInvalid={!!errors.email}>
@@ -232,7 +340,7 @@ const Login = () => {
                                 fontSize="10px"
                                 type="submit"
                                 w="100%"
-                                maxW="350px"
+                                // maxW="350px"
                                 h="45"
                                 mb="20px"
                                 mt="20px"

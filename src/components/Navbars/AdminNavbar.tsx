@@ -50,6 +50,7 @@ import Logo from "../../assets/img/logo.png"
 import { HamburgerIcon } from "@chakra-ui/icons"
 import IconBox from "components/Icons/IconBox"
 import SidebarResponsive from "components/Sidebar"
+import { googleLogout } from "@react-oauth/google"
 
 export default function AdminNavbar(props) {
     const navigate = useNavigate()
@@ -173,11 +174,18 @@ export default function AdminNavbar(props) {
                     <SidebarResponsive />
                     <Button
                         padding={"4px 36px"}
-                        onClick={() =>
-                            isAuthorized
-                                ? setIsAuthorized && setIsAuthorized(false)
-                                : navigate("/login")
-                        }
+                        onClick={() => {
+                            if (isAuthorized) {
+                                try {
+                                    googleLogout()
+                                } catch (error) {
+                                    console.log(error)
+                                }
+                                window.localStorage.clear()
+                                setIsAuthorized && setIsAuthorized(false)
+                                navigate("/index")
+                            } else navigate("/login")
+                        }}
                     >
                         {isAuthorized ? "Logout" : "Login"}
                     </Button>

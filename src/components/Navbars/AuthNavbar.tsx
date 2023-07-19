@@ -123,7 +123,7 @@ export default function AuthNavbar(props) {
                     <Text>Home</Text>
                 </Button>
             </NavLink>
-            <NavLink to="/profile">
+            {/* <NavLink to="/profile">
                 <Button
                     fontSize="sm"
                     ms="0px"
@@ -142,7 +142,7 @@ export default function AuthNavbar(props) {
                 >
                     <Text>Profile</Text>
                 </Button>
-            </NavLink>
+            </NavLink> */}
             <NavLink to="/signup">
                 <Button
                     fontSize="sm"
