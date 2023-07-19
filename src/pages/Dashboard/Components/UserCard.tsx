@@ -42,7 +42,9 @@ const UserCard = ({ name, profile_pic_url, id }: personaProps) => {
                 </Flex> */}
                 <Image src={profile_pic_url} w={16} h={16} rounded={"full"} />
                 <Box mt={2}>
-                    <Heading size="md">{name}</Heading>
+                    <Heading size="md" textAlign={"center"}>
+                        {name}
+                    </Heading>
                     {/* <Text mt={1} fontSize={"sm"}>
                         {prompt?.slice(0, 100) + "..."}
                     </Text> */}
