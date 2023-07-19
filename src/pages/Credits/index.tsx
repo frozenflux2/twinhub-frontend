@@ -114,8 +114,7 @@ const Credits = () => {
                 <HStack fontWeight={"bold"}>
                     <FcCheckmark />
                     <span>
-                        Accessible from web and mobile (currently no support iOS
-                        / Safari)
+                        Accessible from web and mobile (support iOS / Safari)
                     </span>
                 </HStack>
                 <HStack fontWeight={"bold"}>

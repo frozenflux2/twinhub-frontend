@@ -80,8 +80,8 @@ const Dashboard = () => {
             </Stack>
             <Container
                 maxW={{
-                    base: "100%",
-                    lg: "80%"
+                    base: "100%"
+                    // lg: "80%"
                 }}
                 mt={12}
             >
