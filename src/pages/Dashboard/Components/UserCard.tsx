@@ -3,6 +3,7 @@ import {
     Button,
     Container,
     Flex,
+    VStack,
     Heading,
     Image,
     Stack,
@@ -10,6 +11,8 @@ import {
 } from "@chakra-ui/react"
 import { personaProps } from "../../../constants"
 import { Navigate, useNavigate } from "react-router-dom"
+import { PhoneIcon } from "@chakra-ui/icons"
+import { FaPhone, FaPhoneAlt, FaPhoneSquare } from "react-icons/fa"
 
 const UserCard = ({ name, profile_pic_url, id }: personaProps) => {
     const navigate = useNavigate()
@@ -18,38 +21,45 @@ const UserCard = ({ name, profile_pic_url, id }: personaProps) => {
         <Box
             maxW={{ base: "45%", md: "20%" }}
             w={"full"}
-            borderWidth="1px"
-            borderRadius="lg"
-            overflow="hidden"
-            p={10}
-            cursor={"pointer"}
+            h={"112px"}
+            mt={"36px"}
+            bg={
+                "linear-gradient(180deg, rgba(255, 255, 255, 0) 11.02%, rgba(255, 255, 255, 0.5) 100%)"
+            }
             _hover={{
-                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)"
+                filter: "brightness(120%)",
+                mt: "32px"
             }}
+            filter={"drop-shadow(0px 14px 10px rgba(0, 0, 0, 0.1))"}
+            borderRadius={"14px"}
+            border={"1px solid rgba(255, 255, 255, 0.16)"}
+            cursor={"pointer"}
+            transition={"0.2s linear"}
             onClick={() => navigate(`/chat/${id}`)}
         >
-            <Stack align={"center"} spacing={5}>
-                {/* <Flex
-                    w={16}
-                    h={16}
-                    align={"center"}
-                    justify={"center"}
-                    color={"white"}
+            <Flex
+                flex={1}
+                zIndex={1}
+                gap={"13px"}
+                flexDirection={"column"}
+                mt={"-36px"}
+                cursor={"pointer"}
+                mx={"23px"}
+            >
+                <Image
+                    src={profile_pic_url}
+                    w={"88px"}
+                    h={"88px"}
                     rounded={"full"}
-                    bg={useColorModeValue("gray.100", "gray.700")}
-                >
-                    {image}
-                </Flex> */}
-                <Image src={profile_pic_url} w={16} h={16} rounded={"full"} />
-                <Box mt={2}>
-                    <Text size="md" textAlign={"center"}>
+                    border={"4px solid rgba(255, 255, 255, 0.16)"}
+                />
+                <Flex justifyContent={"space-between"} alignItems={"center"}>
+                    <Text size="md" textAlign={"center"} color={"#504D73"}>
                         {name}
                     </Text>
-                    {/* <Text mt={1} fontSize={"sm"}>
-                        {prompt?.slice(0, 100) + "..."}
-                    </Text> */}
-                </Box>
-            </Stack>
+                    <FaPhoneAlt />
+                </Flex>
+            </Flex>
         </Box>
     )
 }
