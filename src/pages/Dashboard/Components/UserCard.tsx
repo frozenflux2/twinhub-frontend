@@ -19,7 +19,7 @@ const UserCard = ({ name, profile_pic_url, id }: personaProps) => {
 
     return (
         <Box
-            maxW={{ base: "45%", md: "20%" }}
+            maxW={{ base: "45%", md: "222px" }}
             w={"full"}
             h={"112px"}
             mt={"36px"}
