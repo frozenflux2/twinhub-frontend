@@ -13,6 +13,14 @@ import { Navigate, useNavigate, useParams } from "react-router-dom"
 import AudioRecorder from "audio-recorder-polyfill"
 import Loader from "components/Loader"
 import { PhoneIcon } from "@chakra-ui/icons"
+import {
+    FaTelegram,
+    FaDiscord,
+    FaTiktok,
+    FaYoutube,
+    FaInstagram,
+    FaFacebook
+} from "react-icons/fa"
 
 window.MediaRecorder = AudioRecorder
 
@@ -214,86 +222,134 @@ const Chatting = () => {
         isLoading ? (
             <Loader />
         ) : (
-            <Center
-                alignItems={"center"}
-                h={"100vh"}
-                flexDirection={"column"}
-                gap={"20px"}
-                color={"#FFF"}
-            >
-                <Heading as={"h1"}>{personalData?.name}</Heading>
-                <Image
-                    src={personalData?.pic_url}
-                    alt={personalData?.name}
-                    w={"300px"}
-                    h={"300px"}
-                    rounded={"full"}
-                    border={"4px solid rgba(255, 255, 255, 0.16)"}
-                />
-                {isRecording ? (
-                    <Flex alignItems={"center"}>
-                        <Button
-                            p={"12px 24px"}
-                            onClick={() => {
-                                if (isRecording) {
-                                    mediaRecorder.stop()
-                                    socket.close()
-                                    setIsRecording(false)
-                                } else {
-                                    setIsRecording(true)
-                                }
-                            }}
-                            w={"152px"}
-                            border={"1px solid #DF3119"}
-                            pr={"36px"}
+            <>
+                <Center
+                    alignItems={"center"}
+                    h={"100vh"}
+                    flexDirection={"column"}
+                    gap={"20px"}
+                    color={"#FFF"}
+                >
+                    <Heading as={"h1"}>{personalData?.name}</Heading>
+                    <Image
+                        src={personalData?.pic_url}
+                        alt={personalData?.name}
+                        w={"300px"}
+                        h={"300px"}
+                        rounded={"full"}
+                        border={"4px solid rgba(255, 255, 255, 0.16)"}
+                    />
+                    {isRecording ? (
+                        <Flex alignItems={"center"}>
+                            <Button
+                                p={"12px 24px"}
+                                onClick={() => {
+                                    if (isRecording) {
+                                        mediaRecorder.stop()
+                                        socket.close()
+                                        setIsRecording(false)
+                                    } else {
+                                        setIsRecording(true)
+                                    }
+                                }}
+                                w={"152px"}
+                                border={"1px solid #DF3119"}
+                                pr={"36px"}
+                            >
+                                <Text>Hang up</Text>
+                            </Button>
+                            <IconButton
+                                aria-label={"Call"}
+                                icon={<PhoneIcon />}
+                                size={"lg"}
+                                bgColor={"#DF3119 !important"}
+                                zIndex={1}
+                                _hover={{
+                                    filter: "none"
+                                }}
+                                ml={"-24px"}
+                            />
+                        </Flex>
+                    ) : (
+                        <Flex alignItems={"center"}>
+                            <IconButton
+                                aria-label={"Call"}
+                                icon={<PhoneIcon />}
+                                size={"lg"}
+                                bgColor={"#0BB512 !important"}
+                                zIndex={1}
+                                _hover={{
+                                    filter: "none"
+                                }}
+                                mr={"-24px"}
+                            />
+                            <Button
+                                p={"12px 24px"}
+                                onClick={() => {
+                                    if (isRecording) {
+                                        mediaRecorder.stop()
+                                        socket.close()
+                                        setIsRecording(false)
+                                    } else {
+                                        setIsRecording(true)
+                                    }
+                                }}
+                                w={"152px"}
+                                border={"1px solid #0BB512"}
+                                pl={"36px"}
+                            >
+                                <Text>CALL</Text>
+                            </Button>
+                        </Flex>
+                    )}
+                </Center>
+                <Flex
+                    direction={"column"}
+                    alignItems={"center"}
+                    gap={"10px"}
+                    position={"absolute"}
+                    bottom={"20px"}
+                    mx={"auto"}
+                    width={"100%"}
+                >
+                    <Text>Contact Us</Text>
+                    <Flex gap={"10px"} fontSize={"30px"} color={"#4C368D"}>
+                        <a
+                            href="https://t.me/+w_GZc7AEtsxiM2Fh"
+                            target="_blank"
                         >
-                            <Text>Hang up</Text>
-                        </Button>
-                        <IconButton
-                            aria-label={"Call"}
-                            icon={<PhoneIcon />}
-                            size={"lg"}
-                            bgColor={"#DF3119 !important"}
-                            zIndex={1}
-                            _hover={{
-                                filter: "none"
-                            }}
-                            ml={"-24px"}
-                        />
-                    </Flex>
-                ) : (
-                    <Flex alignItems={"center"}>
-                        <IconButton
-                            aria-label={"Call"}
-                            icon={<PhoneIcon />}
-                            size={"lg"}
-                            bgColor={"#0BB512 !important"}
-                            zIndex={1}
-                            _hover={{
-                                filter: "none"
-                            }}
-                            mr={"-24px"}
-                        />
-                        <Button
-                            p={"12px 24px"}
-                            onClick={() => {
-                                if (isRecording) {
-                                    mediaRecorder.stop()
-                                    socket.close()
-                                    setIsRecording(false)
-                                } else {
-                                    setIsRecording(true)
-                                }
-                            }}
-                            w={"152px"}
-                            border={"1px solid #0BB512"}
-                            pl={"36px"}
+                            <FaTelegram />
+                        </a>
+                        <a href="https://discord.gg/DNjbDrFM" target="_blank">
+                            <FaDiscord />
+                        </a>
+                        <a
+                            href="https://www.instagram.com/twinhub.ai/?igshid=YmM0MjE2YWMzOA"
+                            target="_blank"
                         >
-                            <Text>CALL</Text>
-                        </Button>
+                            <FaInstagram />
+                        </a>
+                        <a
+                            href="https://www.tiktok.com/@twinhub.ai"
+                            target="_blank"
+                        >
+                            <FaTiktok />
+                        </a>
+                        <a
+                            href="https://www.youtube.com/channel/UC5pCim57xW170qjDsPusOYQ"
+                            target="_blank"
+                        >
+                            <FaYoutube />
+                        </a>
+                        <a
+                            href="https://www.facebook.com/people/TwinHub/100093399862136/"
+                            target="_blank"
+                        >
+                            <FaFacebook />
+                        </a>
                     </Flex>
-                )}
-            </Center>
+                </Flex>
+            </>
         )
     ) : (
         <Navigate to={"/login"} />

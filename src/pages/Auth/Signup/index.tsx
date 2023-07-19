@@ -488,6 +488,7 @@ const Signup = () => {
                         alignItems={"center"}
                         gap={"10px"}
                         mt={"10px"}
+                        mb={"20px"}
                     >
                         <Text>Contact Us</Text>
                         <Flex gap={"10px"} fontSize={"30px"} color={"#4C368D"}>
