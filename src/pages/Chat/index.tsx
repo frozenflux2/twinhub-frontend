@@ -161,7 +161,7 @@ const Chatting = () => {
                     // }
 
                     mediaRecorder = new MediaRecorder(stream, {
-                        mimeType: "audio/webm"
+                        mimeType: "audio/mp3"
                     })
 
                     mediaRecorder.start(250)
