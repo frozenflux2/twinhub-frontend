@@ -215,7 +215,7 @@ const Login = () => {
                                     />
                                 </Flex>
                             </GradientBorder>
-                            <GradientBorder borderRadius="15px">
+                            {/* <GradientBorder borderRadius="15px">
                                 <Flex
                                     _hover={{ filter: "brightness(120%)" }}
                                     transition="all .25s ease"
@@ -237,7 +237,7 @@ const Login = () => {
                                         }}
                                     />
                                 </Flex>
-                            </GradientBorder>
+                            </GradientBorder> */}
                         </HStack>
                         <Text
                             fontSize="16px"
