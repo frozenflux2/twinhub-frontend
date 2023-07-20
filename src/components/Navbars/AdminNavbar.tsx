@@ -44,7 +44,8 @@ import {
     FaMailBulk,
     FaCreditCard,
     FaEnvelope,
-    FaMobileAlt
+    FaMobileAlt,
+    FaAngleRight
 } from "react-icons/fa"
 import { AppContext, NavbarPosition } from "../../constants"
 import Logo from "../../assets/img/logo.png"
@@ -156,8 +157,10 @@ export default function AdminNavbar(props) {
                         cursor={"pointer"}
                     />
                     <Button
-                        border={"1px solid #8187EF"}
-                        bgColor={"rgba(146, 89, 238, 0.40) !important"}
+                        border={"1px solid #AC7AFD"}
+                        bg={
+                            "linear-gradient(180deg, #633BA5 0%, #D059EE 100%) !important"
+                        }
                         gap={"4px"}
                         as={"a"}
                         href="https://flirt.twinhub.ai"
@@ -177,9 +180,10 @@ export default function AdminNavbar(props) {
                                 "0px 4px 6px 0px rgba(185, 45, 124, 0.40)"
                             }
                         />
-                        <Text fontSize={"12px"} color={"#FFF"}>
+                        <Text fontSize={"14px"} color={"#FFF"} fontWeight={400}>
                             NSFW
                         </Text>
+                        <FaAngleRight />
                     </Button>
                 </HStack>
                 <HStack gap={"10px"}>
