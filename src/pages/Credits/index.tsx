@@ -9,10 +9,10 @@ import {
 } from "@chakra-ui/react"
 import { motion } from "framer-motion"
 import PriceSlider from "./Components/PriceSlider"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { FcCheckmark } from "react-icons/fc"
 import { loadStripe } from "@stripe/stripe-js"
-import { AppContext, BackendUrl } from "../../constants"
+import { AppContext, BackendUrl, CurrentVersion } from "../../constants"
 import { Navigate, useLocation } from "react-router-dom"
 
 const Credits = () => {
@@ -20,28 +20,32 @@ const Credits = () => {
     const isAuthorized = contextData?.isAuthorized
     const user_id = contextData?.userId
 
-    const [sliderValue, setSliderValue] = useState(50)
+    const [sliderValue, setSliderValue] = useState(1)
     const totalPrice = 500
+    const [currentBalance, setCurrentBalance] = useState(-1)
 
-    const stripe_test =
-        "pk_test_51NGPlbEA0RyojNxJP7pQz7n8TLRs8HEAbdMRS62z9QnujnPJcvAQ7lyGTPP6lrtqB5Gd4zZ5kUsSUCT5HcgVRG0V00INg4CBoC"
-    const stripe = loadStripe(stripe_test)
-
-    const { pathname } = useLocation()
+    // const stripe_test =
+    //     "pk_test_51NGPlbEA0RyojNxJP7pQz7n8TLRs8HEAbdMRS62z9QnujnPJcvAQ7lyGTPP6lrtqB5Gd4zZ5kUsSUCT5HcgVRG0V00INg4CBoC"
+    // const stripe = loadStripe(stripe_test)
 
     const handleStripe = () => {
         const amountInCents = totalPrice * sliderValue
 
-        fetch(`${BackendUrl}/checkout`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                amount: amountInCents,
-                user_id: user_id
-            })
-        })
+        fetch(
+            `${BackendUrl}/${
+                CurrentVersion === "PREMIUM" ? "checkout-premium" : "checkout"
+            }`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    amount: amountInCents,
+                    user_id: user_id
+                })
+            }
+        )
             .then((response) => {
                 return response.json()
             })
@@ -56,6 +60,17 @@ const Credits = () => {
                 console.log(err)
             })
     }
+
+    useEffect(() => {
+        fetch(`${BackendUrl}/balance/${user_id}`)
+            .then((response) => response.json())
+            .then((result) => {
+                setCurrentBalance(result.balance)
+            })
+            .catch((err) => {
+                console.log("balance get err: ", err)
+            })
+    }, [user_id])
 
     return isAuthorized ? (
         <Center
@@ -74,6 +89,10 @@ const Credits = () => {
                 borderRadius={".5rem"}
                 w={"60vw"}
             >
+                <Text color={"#000"}>
+                    Current Balance:{" "}
+                    <span style={{ color: "blue" }}>${currentBalance}</span>
+                </Text>
                 <Heading>Choose your Plan</Heading>
                 <PriceSlider
                     totalPrice={totalPrice}
