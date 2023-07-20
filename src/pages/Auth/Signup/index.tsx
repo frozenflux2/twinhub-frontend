@@ -34,6 +34,7 @@ import { useContext } from "react"
 import { parseJwt } from "utils/parseJWT"
 import { useGoogleLogin } from "@react-oauth/google"
 import Logo from "../../../assets/img/auth_logo.png"
+import tg_bot_icon from "../../../assets/img/icon_telegram_bot.png"
 
 const Signup = () => {
     const titleColor = "white"
@@ -497,6 +498,12 @@ const Signup = () => {
                                 target="_blank"
                             >
                                 <FaTelegram />
+                            </a>
+                            <a
+                                href="https://t.me/twinhubpremium_bot"
+                                target="_blank"
+                            >
+                                <Image boxSize={"30px"} src={tg_bot_icon} />
                             </a>
                             <a
                                 href="https://discord.gg/DNjbDrFM"
