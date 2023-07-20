@@ -131,7 +131,10 @@ export default function AdminNavbar(props) {
             mt={secondaryMargin}
             pb="8px"
             left={"10vw"}
-            px="30px"
+            px={{
+                base: "5px",
+                md: "30px"
+            }}
             pt="8px"
             top="18px"
             w="80vw"

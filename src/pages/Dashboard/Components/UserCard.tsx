@@ -50,7 +50,7 @@ const UserCard = ({ name, profile_pic_url, id }: personaProps) => {
                 <Image
                     src={profile_pic_url}
                     w={"88px"}
-                    h={"88px"}
+                    h={"auto"}
                     rounded={"full"}
                     border={"4px solid rgba(255, 255, 255, 0.16)"}
                 />
