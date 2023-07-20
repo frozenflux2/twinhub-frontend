@@ -78,7 +78,8 @@ export const buttonStyles =  {
                 },
                 _active: {
                     filter: "brightness(90%)"
-                }
+                },
+                transition: "0.2s linear"
             }
         }
     }
