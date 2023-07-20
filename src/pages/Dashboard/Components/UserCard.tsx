@@ -58,7 +58,18 @@ const UserCard = ({ name, profile_pic_url, id }: personaProps) => {
                     <Text size="md" textAlign={"center"} color={"#504D73"}>
                         {name}
                     </Text>
-                    <FaPhoneAlt />
+                    <Box
+                        display={{
+                            sm: "none",
+                            md: "flex"
+                        }}
+                        bgColor={"#8881D1"}
+                        p={"4px"}
+                        borderRadius={"full"}
+                        color={"rgba(190, 178, 236, 1)"}
+                    >
+                        <FaPhoneAlt />
+                    </Box>
                 </Flex>
             </Flex>
         </Box>

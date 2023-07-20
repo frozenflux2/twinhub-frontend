@@ -34,6 +34,7 @@ import {
 } from "react-icons/fa"
 import { useGoogleLogin, GoogleLogin } from "@react-oauth/google"
 import Logo from "../../../assets/img/auth_logo.png"
+import tg_bot_icon from "../../../assets/img/icon_telegram_bot.png"
 
 const Login = () => {
     const navigate = useNavigate()
@@ -399,6 +400,12 @@ const Login = () => {
                                 target="_blank"
                             >
                                 <FaTelegram />
+                            </a>
+                            <a
+                                href="https://t.me/twinhubpremium_bot"
+                                target="_blank"
+                            >
+                                <Image boxSize={"30px"} src={tg_bot_icon} />
                             </a>
                             <a
                                 href="https://discord.gg/DNjbDrFM"
