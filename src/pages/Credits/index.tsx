@@ -87,7 +87,14 @@ const Credits = () => {
                 p={"2rem"}
                 bg={"#FFF"}
                 borderRadius={".5rem"}
-                w={"60vw"}
+                w={{
+                    base: "100vw",
+                    md: "60vw"
+                }}
+                mt={{
+                    base: "25vh",
+                    md: "0"
+                }}
             >
                 <Text color={"#000"}>
                     Current Balance:{" "}
