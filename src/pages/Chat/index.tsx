@@ -92,7 +92,7 @@ const Chatting = () => {
             }
 
             // Create a Blob from the audio data
-            var audioBlob = new Blob([audioArrayBuffer], { type: "audio/mp3" })
+            var audioBlob = new Blob([audioArrayBuffer], { type: "audio/aac" })
 
             // Add the audio data to the queue
             audioQueue.push({ transcript: transcript, audioBlob: audioBlob })
