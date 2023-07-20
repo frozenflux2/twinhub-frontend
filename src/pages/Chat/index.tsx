@@ -19,8 +19,10 @@ import {
     FaTiktok,
     FaYoutube,
     FaInstagram,
-    FaFacebook
+    FaFacebook,
+    FaShareAlt
 } from "react-icons/fa"
+import tg_bot_icon from "../../assets/img/icon_telegram_bot.png"
 
 window.MediaRecorder = AudioRecorder
 
@@ -306,6 +308,18 @@ const Chatting = () => {
                             </>
                         )}
                     </Flex>
+                    <IconButton
+                        aria-label="share"
+                        icon={<FaShareAlt />}
+                        borderColor={"#7C67F0"}
+                        bgColor={"#694AC8 !important"}
+                        onClick={() => {
+                            navigator.clipboard.writeText(window.location.href)
+                            // toast("Copied to clipboard", {
+                            //     position: "top-right"
+                            // })
+                        }}
+                    />
                 </Center>
                 <Flex
                     direction={"column"}
@@ -323,6 +337,12 @@ const Chatting = () => {
                             target="_blank"
                         >
                             <FaTelegram />
+                        </a>
+                        <a
+                            href="https://t.me/twinhubpremium_bot"
+                            target="_blank"
+                        >
+                            <Image boxSize={"30px"} src={tg_bot_icon} />
                         </a>
                         <a href="https://discord.gg/DNjbDrFM" target="_blank">
                             <FaDiscord />
