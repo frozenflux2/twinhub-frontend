@@ -316,7 +316,7 @@ const Chatting = () => {
                     mx={"auto"}
                     width={"100%"}
                 >
-                    <Text>Contact Us</Text>
+                    <Text color={"#BAA6FF"}>Contact Us</Text>
                     <Flex gap={"10px"} fontSize={"30px"} color={"#4C368D"}>
                         <a
                             href="https://t.me/+w_GZc7AEtsxiM2Fh"
