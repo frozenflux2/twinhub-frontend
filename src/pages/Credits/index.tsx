@@ -87,12 +87,15 @@ const Credits = () => {
                 p={"2rem"}
                 bg={"#FFF"}
                 borderRadius={".5rem"}
-                w={"60vw"}
+                w={{
+                    base: "100vw",
+                    md: "60vw"
+                }}
+                mt={{
+                    base: "25vh",
+                    md: "0"
+                }}
             >
-                <Text color={"#000"}>
-                    Current Balance:{" "}
-                    <span style={{ color: "blue" }}>${currentBalance}</span>
-                </Text>
                 <Heading>Choose your Plan</Heading>
                 <PriceSlider
                     totalPrice={totalPrice}
@@ -121,6 +124,18 @@ const Credits = () => {
                     >
                         Stripe
                     </Link>
+                </Text>
+                <Text color={"#000"}>
+                    Current Balance:{" "}
+                    <span
+                        style={{
+                            color: "#EF5626",
+                            fontWeight: 800,
+                            fontSize: "18px"
+                        }}
+                    >
+                        ${currentBalance}
+                    </span>
                 </Text>
                 <HStack fontWeight={"bold"}>
                     <FcCheckmark />
