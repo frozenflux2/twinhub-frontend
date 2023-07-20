@@ -32,6 +32,7 @@ const PriceSlider = ({
             <Slider
                 aria-label="slider-ex-6"
                 onChange={(val) => setSliderValue(Math.max(1, val))}
+                defaultValue={sliderValue}
             >
                 <SliderMark value={0} {...labelStyles}>
                     ${0}

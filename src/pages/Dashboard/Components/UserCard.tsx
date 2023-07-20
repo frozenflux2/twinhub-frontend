@@ -21,7 +21,7 @@ const UserCard = ({ name, profile_pic_url, id }: personaProps) => {
         <Box
             maxW={{ base: "45%", md: "222px" }}
             w={"full"}
-            minH={"112px"}
+            minH={"132px"}
             mt={"36px"}
             bg={
                 "linear-gradient(180deg, rgba(255, 255, 255, 0) 11.02%, rgba(255, 255, 255, 0.5) 100%)"
