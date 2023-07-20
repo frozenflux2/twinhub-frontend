@@ -209,8 +209,17 @@ export default function AuthNavbar(props) {
             <Flex
                 w="100%"
                 justifyContent={{ sm: "start", lg: "space-between" }}
+                alignItems={"center"}
             >
-                {brand}
+                {/* {brand} */}
+                <Image
+                    src={Logo}
+                    height={"auto"}
+                    maxW={"128px"}
+                    alt={logoText}
+                    onClick={() => navigate("/")}
+                    cursor={"pointer"}
+                />
                 <Box
                     ms={{ base: "auto", lg: "0px" }}
                     display={{ base: "flex", lg: "none" }}
