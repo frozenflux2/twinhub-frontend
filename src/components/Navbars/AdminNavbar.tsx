@@ -147,7 +147,7 @@ export default function AdminNavbar(props) {
             zIndex={100}
         >
             <Flex w="100%" alignItems="center" justifyContent={"space-between"}>
-                <HStack>
+                <HStack gap={"16px"}>
                     <Image
                         src={Logo}
                         height={"auto"}
@@ -172,7 +172,7 @@ export default function AdminNavbar(props) {
                     >
                         <Image
                             src={icon_lips}
-                            bgColor={"#AF97F3"}
+                            bgColor={"#FF8ECF"}
                             borderRadius={"full"}
                             maxW={"32px"}
                             h={"auto"}

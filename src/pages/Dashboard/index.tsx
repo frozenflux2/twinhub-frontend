@@ -47,7 +47,7 @@ const Dashboard = () => {
                         color={"gray.300"}
                         fontSize={{ base: "sm", sm: "lg" }}
                     >
-                        Search your favorite user
+                        Search your favorite persona
                     </Text>
                     <InputGroup
                         cursor="pointer"

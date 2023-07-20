@@ -231,7 +231,7 @@ const Signup = () => {
                                         />
                                     </Flex>
                                 </GradientBorder>
-                                <GradientBorder borderRadius="15px">
+                                {/* <GradientBorder borderRadius="15px">
                                     <Flex
                                         _hover={{ filter: "brightness(120%)" }}
                                         transition="all .25s ease"
@@ -246,7 +246,7 @@ const Signup = () => {
                                         <Link href="#">
                                             <Icon
                                                 color={titleColor}
-                                                as={FaApple}
+                                                as={FaFacebook}
                                                 w="30px"
                                                 h="30px"
                                                 _hover={{
@@ -255,7 +255,7 @@ const Signup = () => {
                                             />
                                         </Link>
                                     </Flex>
-                                </GradientBorder>
+                                </GradientBorder> */}
                             </HStack>
                             <Text
                                 fontSize="lg"
