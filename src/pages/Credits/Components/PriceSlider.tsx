@@ -35,7 +35,7 @@ const PriceSlider = ({
                 defaultValue={sliderValue}
             >
                 <SliderMark value={0} {...labelStyles}>
-                    ${0}
+                    ${5}
                 </SliderMark>
                 <SliderMark value={25} {...labelStyles}>
                     ${totalPrice / 4}

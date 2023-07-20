@@ -20,10 +20,12 @@ import {
     FaTelegram,
     FaMailBulk,
     FaCreditCard,
-    FaEnvelope
+    FaEnvelope,
+    FaMobileAlt
 } from "react-icons/fa"
 import Logo from "../../assets/img/logo.png"
 import IconBox from "components/Icons/IconBox"
+import lips_ico from "../../assets/img/icon_lips.png"
 
 const SidebarResponsive = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -43,14 +45,14 @@ const SidebarResponsive = () => {
                 alignItems="center"
                 fontSize="11px"
             >
-                <Image
+                {/* <Image
                     src={Logo}
                     alt={logoText}
                     w="auto"
                     h="22px"
                     me="10px"
                     mt="2px"
-                />
+                /> */}
                 <Box
                     bg="linear-gradient(97.89deg, #FFFFFF 70.67%, rgba(117, 122, 140, 0) 108.55%)"
                     bgClip="text"
@@ -93,6 +95,52 @@ const SidebarResponsive = () => {
                     </IconBox>
                     <Text color={"white"} my="auto" fontSize="sm">
                         Home
+                    </Text>
+                </Flex>
+            </Button>
+            <Button
+                boxSize="inherit"
+                variant={"sidebar-item"}
+                as={"a"}
+                href="https://flirt.twinhub.ai"
+                target="_self"
+            >
+                <Flex>
+                    <Image
+                        bg="brand.200"
+                        color="white"
+                        h="30px"
+                        w="30px"
+                        me="12px"
+                        transition={"0.2s linear"}
+                        src={lips_ico}
+                        borderRadius={"30%"}
+                    />
+                    <Text color={"white"} my="auto" fontSize="sm">
+                        NSFW
+                    </Text>
+                </Flex>
+            </Button>
+            <Button
+                boxSize="inherit"
+                variant={"sidebar-item"}
+                as={"a"}
+                href="https://t.me/twinhub_bot"
+                target="_blank"
+            >
+                <Flex>
+                    <IconBox
+                        bg="brand.200"
+                        color="white"
+                        h="30px"
+                        w="30px"
+                        me="12px"
+                        transition={"0.2s linear"}
+                    >
+                        <FaMobileAlt />
+                    </IconBox>
+                    <Text color={"white"} my="auto" fontSize="sm">
+                        Mobile App
                     </Text>
                 </Flex>
             </Button>
