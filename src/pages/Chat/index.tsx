@@ -239,69 +239,73 @@ const Chatting = () => {
                         rounded={"full"}
                         border={"4px solid rgba(255, 255, 255, 0.16)"}
                     />
-                    {isRecording ? (
-                        <Flex alignItems={"center"}>
-                            <Button
-                                p={"12px 24px"}
-                                onClick={() => {
-                                    if (isRecording) {
-                                        mediaRecorder.stop()
-                                        socket.close()
-                                        setIsRecording(false)
-                                    } else {
-                                        setIsRecording(true)
-                                    }
-                                }}
-                                w={"152px"}
-                                border={"1px solid #DF3119"}
-                                pr={"36px"}
-                            >
-                                <Text>Hang up</Text>
-                            </Button>
-                            <IconButton
-                                aria-label={"Call"}
-                                icon={<PhoneIcon />}
-                                size={"lg"}
-                                bgColor={"#DF3119 !important"}
-                                zIndex={1}
-                                _hover={{
-                                    filter: "none"
-                                }}
-                                ml={"-24px"}
-                            />
-                        </Flex>
-                    ) : (
-                        <Flex alignItems={"center"}>
-                            <IconButton
-                                aria-label={"Call"}
-                                icon={<PhoneIcon />}
-                                size={"lg"}
-                                bgColor={"#0BB512 !important"}
-                                zIndex={1}
-                                _hover={{
-                                    filter: "none"
-                                }}
-                                mr={"-24px"}
-                            />
-                            <Button
-                                p={"12px 24px"}
-                                onClick={() => {
-                                    if (isRecording) {
-                                        mediaRecorder.stop()
-                                        socket.close()
-                                        setIsRecording(false)
-                                    } else {
-                                        setIsRecording(true)
-                                    }
-                                }}
-                                w={"152px"}
-                                border={"1px solid #0BB512"}
-                                pl={"36px"}
-                            >
-                                <Text>CALL</Text>
-                            </Button>
-                        </Flex>
-                    )}
+                    <Flex
+                        alignItems={"center"}
+                        onClick={() => {
+                            if (isRecording) {
+                                mediaRecorder.stop()
+                                socket.close()
+                                setIsRecording(false)
+                            } else {
+                                setIsRecording(true)
+                            }
+                        }}
+                        _hover={{
+                            filter: "brightness(120%)"
+                        }}
+                    >
+                        {isRecording ? (
+                            <>
+                                <Button
+                                    p={"12px 24px"}
+                                    w={"152px"}
+                                    border={"1px solid #DF3119"}
+                                    pr={"36px"}
+                                    _hover={{
+                                        filter: "none"
+                                    }}
+                                >
+                                    <Text>Hang up</Text>
+                                </Button>
+                                <IconButton
+                                    aria-label={"Call"}
+                                    icon={<PhoneIcon />}
+                                    size={"lg"}
+                                    bgColor={"#DF3119 !important"}
+                                    zIndex={1}
+                                    _hover={{
+                                        filter: "none"
+                                    }}
+                                    ml={"-24px"}
+                                />
+                            </>
+                        ) : (
+                            <>
+                                <IconButton
+                                    aria-label={"Call"}
+                                    icon={<PhoneIcon />}
+                                    size={"lg"}
+                                    bgColor={"#0BB512 !important"}
+                                    zIndex={1}
+                                    _hover={{
+                                        filter: "none"
+                                    }}
+                                    mr={"-24px"}
+                                />
+                                <Button
+                                    p={"12px 24px"}
+                                    w={"152px"}
+                                    border={"1px solid #0BB512"}
+                                    pl={"36px"}
+                                    _hover={{
+                                        filter: "none"
+                                    }}
+                                >
+                                    <Text>CALL</Text>
+                                </Button>
+                            </>
+                        )}
+                    </Flex>
                 </Center>
                 <Flex
                     direction={"column"}
