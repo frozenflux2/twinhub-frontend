@@ -24,6 +24,7 @@ import {
     FaShareAlt
 } from "react-icons/fa"
 import tg_bot_icon from "../../assets/img/icon_telegram_bot.png"
+import trigger_audio from "../../assets/trigger.mp3"
 
 window.MediaRecorder = AudioRecorder
 
@@ -121,9 +122,6 @@ const Chatting = () => {
                 // currentAudioElement = audioElement;
                 audioElement.src = URL.createObjectURL(audioBlob)
                 audioElement.autoplay = true
-                audioElement.oncanplaythrough = () => {
-                    audioElement.play()
-                }
 
                 // Use the transcript as needed
                 console.log("Transcript:", transcript)
@@ -132,7 +130,28 @@ const Chatting = () => {
                 isPlaying = true
 
                 // Play the audio
-                // audioElement.play()
+                audioElement.play()
+                // var promise = audioElement.play()
+
+                // // iOS doesn't allow play() to be called without a user gesture.
+                // // So, if it doesn't return a promise, or the promise is rejected, we need to get a user gesture before we can play the audio.
+                // if (promise !== undefined) {
+                //     promise
+                //         .catch((error) => {
+                //             // Auto-play was prevented. Show UI to the user to start audio playing.
+                //             // Add UI element that a user can interact with to start the audio.
+                //             var playButton = document.createElement("button")
+                //             playButton.innerText = "Play"
+                //             playButton.addEventListener("click", function () {
+                //                 audioElement.play()
+                //             })
+                //             document.body.appendChild(playButton)
+                //         })
+                //         .then(() => {
+                //             // Auto-play started
+                //             console.log("Auto-play started")
+                //         })
+                // }
 
                 // When the audio finishes playing, play the next audio
                 audioElement.onended = () => {
@@ -263,6 +282,8 @@ const Chatting = () => {
                                 socket.close()
                                 setIsRecording(false)
                             } else {
+                                const trigger = new Audio(trigger_audio)
+                                trigger.play()
                                 setIsRecording(true)
                             }
                         }}
