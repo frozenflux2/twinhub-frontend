@@ -16,7 +16,12 @@ import {
     Image
 } from "@chakra-ui/react"
 import { motion } from "framer-motion"
-import { useNavigate, Link as RouterLink, Navigate } from "react-router-dom"
+import {
+    useNavigate,
+    Link as RouterLink,
+    Navigate,
+    useLocation
+} from "react-router-dom"
 import { useForm } from "react-hook-form"
 import auth_background from "../../../assets/img/auth_background.png"
 import GradientBorder from "../Component/GradientBorder"
@@ -41,6 +46,11 @@ const Login = () => {
     const handleBackToHome = () => navigate("/")
     const titleColor = "white"
     const textColor = "#BAA6FF"
+
+    const location = useLocation()
+    const queryParams = new URLSearchParams(location.search)
+    const forward = queryParams.get("forward")
+    console.log("forward: ", forward)
 
     const {
         handleSubmit,
@@ -129,7 +139,7 @@ const Login = () => {
     })
 
     return isAuthorized ? (
-        <Navigate to={"/index"} />
+        <Navigate to={forward || "/index"} />
     ) : (
         <Flex position={"relative"}>
             <Flex
@@ -401,10 +411,7 @@ const Login = () => {
                             >
                                 <FaTelegram />
                             </a>
-                            <a
-                                href="https://t.me/twinhubpremium_bot"
-                                target="_blank"
-                            >
+                            <a href="https://t.me/twinhub_bot" target="_blank">
                                 <Image boxSize={"30px"} src={tg_bot_icon} />
                             </a>
                             <a
