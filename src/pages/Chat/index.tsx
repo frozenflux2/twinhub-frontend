@@ -120,6 +120,7 @@ const Chatting = () => {
                 var audioElement = document.createElement("audio")
                 // currentAudioElement = audioElement;
                 audioElement.src = URL.createObjectURL(audioBlob)
+                audioElement.autoplay = true
 
                 // Use the transcript as needed
                 console.log("Transcript:", transcript)
