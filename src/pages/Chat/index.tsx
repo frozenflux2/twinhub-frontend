@@ -121,6 +121,9 @@ const Chatting = () => {
                 // currentAudioElement = audioElement;
                 audioElement.src = URL.createObjectURL(audioBlob)
                 audioElement.autoplay = true
+                audioElement.oncanplaythrough = () => {
+                    audioElement.play()
+                }
 
                 // Use the transcript as needed
                 console.log("Transcript:", transcript)
@@ -129,7 +132,7 @@ const Chatting = () => {
                 isPlaying = true
 
                 // Play the audio
-                audioElement.play()
+                // audioElement.play()
 
                 // When the audio finishes playing, play the next audio
                 audioElement.onended = () => {
