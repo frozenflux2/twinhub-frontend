@@ -282,7 +282,9 @@ const Chatting = () => {
                                 socket.close()
                                 setIsRecording(false)
                             } else {
-                                const trigger = new Audio(trigger_audio)
+                                const trigger = new Audio()
+                                trigger.autoplay = true
+                                trigger.src = trigger_audio
                                 trigger.play()
                                 setIsRecording(true)
                             }
