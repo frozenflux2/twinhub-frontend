@@ -5,7 +5,8 @@ import {
     Heading,
     IconButton,
     Image,
-    Text
+    Text,
+    Box
 } from "@chakra-ui/react"
 import { AppContext, BackendUrl, WebsocketURL } from "../../constants"
 import { RefObject, createRef, useContext, useEffect, useState } from "react"
@@ -322,7 +323,9 @@ const Chatting = () => {
                         borderColor={"#7C67F0"}
                         bgColor={"#694AC8 !important"}
                         onClick={() => {
-                            navigator.clipboard.writeText(window.location.href)
+                            navigator.clipboard.writeText(
+                                `Check out this new AI ${personalData?.name} I just found! Call at ${window.location.href}`
+                            )
                             // toast("Copied to clipboard", {
                             //     position: "top-right"
                             // })
@@ -350,7 +353,10 @@ const Chatting = () => {
                     direction={"column"}
                     alignItems={"center"}
                     gap={"10px"}
-                    position={"absolute"}
+                    position={{
+                        base: "relative",
+                        md: "absolute"
+                    }}
                     bottom={"20px"}
                     mx={"auto"}
                     width={"100%"}
