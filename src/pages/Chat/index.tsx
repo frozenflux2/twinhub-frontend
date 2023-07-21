@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react"
 import { AppContext, BackendUrl, WebsocketURL } from "../../constants"
 import { RefObject, createRef, useContext, useEffect, useState } from "react"
-import { Navigate, useNavigate, useParams } from "react-router-dom"
+import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom"
 import AudioRecorder from "audio-recorder-polyfill"
 import Loader from "components/Loader"
 import { PhoneIcon } from "@chakra-ui/icons"
@@ -39,6 +39,7 @@ interface AudioObject {
 
 const Chatting = () => {
     const params = useParams()
+    const { pathname } = useLocation()
     const [personalData, setPersonalData] = useState<personalDataType>()
     const [isLoading, setLoading] = useState(true)
     const [isRecording, setIsRecording] = useState(false)
@@ -381,9 +382,9 @@ const Chatting = () => {
                         >
                             <FaTelegram />
                         </a>
-                        <a href="https://t.me/twinhub_bot" target="_blank">
+                        {/* <a href="https://t.me/twinhub_bot" target="_blank">
                             <Image boxSize={"30px"} src={tg_bot_icon} />
-                        </a>
+                        </a> */}
                         <a href="https://discord.gg/DNjbDrFM" target="_blank">
                             <FaDiscord />
                         </a>
@@ -416,7 +417,7 @@ const Chatting = () => {
             </>
         )
     ) : (
-        <Navigate to={"/login"} />
+        <Navigate to={`/login?forward=${pathname}`} />
     )
 }
 
