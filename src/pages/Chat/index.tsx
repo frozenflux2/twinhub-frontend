@@ -5,11 +5,12 @@ import {
     Heading,
     IconButton,
     Image,
-    Text
+    Text,
+    Box
 } from "@chakra-ui/react"
 import { AppContext, BackendUrl, WebsocketURL } from "../../constants"
 import { RefObject, createRef, useContext, useEffect, useState } from "react"
-import { Navigate, useNavigate, useParams } from "react-router-dom"
+import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom"
 import AudioRecorder from "audio-recorder-polyfill"
 import Loader from "components/Loader"
 import { PhoneIcon } from "@chakra-ui/icons"
@@ -38,6 +39,7 @@ interface AudioObject {
 
 const Chatting = () => {
     const params = useParams()
+    const { pathname } = useLocation()
     const [personalData, setPersonalData] = useState<personalDataType>()
     const [isLoading, setLoading] = useState(true)
     const [isRecording, setIsRecording] = useState(false)
@@ -322,7 +324,9 @@ const Chatting = () => {
                         borderColor={"#7C67F0"}
                         bgColor={"#694AC8 !important"}
                         onClick={() => {
-                            navigator.clipboard.writeText(window.location.href)
+                            navigator.clipboard.writeText(
+                                `Check out this new AI ${personalData?.name} I just found! Call at ${window.location.href}`
+                            )
                             // toast("Copied to clipboard", {
                             //     position: "top-right"
                             // })
@@ -350,11 +354,26 @@ const Chatting = () => {
                     direction={"column"}
                     alignItems={"center"}
                     gap={"10px"}
-                    position={"absolute"}
+                    position={{
+                        base: "relative",
+                        md: "absolute"
+                    }}
                     bottom={"20px"}
                     mx={"auto"}
                     width={"100%"}
                 >
+                    <Button
+                        bgColor={"rgba(105, 74, 200, 0.60) !important"}
+                        borderColor={"#8D7FE1"}
+                        fontSize={"14px"}
+                        fontWeight={500}
+                        h={"32px"}
+                        as={"a"}
+                        href="https://t.me/twinhub_bot"
+                        target="_blank"
+                    >
+                        Open in app
+                    </Button>
                     <Text color={"#BAA6FF"}>Contact Us</Text>
                     <Flex gap={"10px"} fontSize={"30px"} color={"#4C368D"}>
                         <a
@@ -363,12 +382,9 @@ const Chatting = () => {
                         >
                             <FaTelegram />
                         </a>
-                        <a
-                            href="https://t.me/twinhubpremium_bot"
-                            target="_blank"
-                        >
+                        {/* <a href="https://t.me/twinhub_bot" target="_blank">
                             <Image boxSize={"30px"} src={tg_bot_icon} />
-                        </a>
+                        </a> */}
                         <a href="https://discord.gg/DNjbDrFM" target="_blank">
                             <FaDiscord />
                         </a>
@@ -401,7 +417,7 @@ const Chatting = () => {
             </>
         )
     ) : (
-        <Navigate to={"/login"} />
+        <Navigate to={`/login?forward=${pathname}`} />
     )
 }
 
