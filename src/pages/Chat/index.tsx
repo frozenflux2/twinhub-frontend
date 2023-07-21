@@ -238,8 +238,14 @@ const Chatting = () => {
                     <Image
                         src={personalData?.pic_url}
                         alt={personalData?.name}
-                        w={"300px"}
-                        h={"300px"}
+                        w={{
+                            base: "250px",
+                            md: "300px"
+                        }}
+                        h={{
+                            base: "250px",
+                            md: "300px"
+                        }}
                         rounded={"full"}
                         border={"4px solid rgba(255, 255, 255, 0.16)"}
                     />
@@ -334,6 +340,7 @@ const Chatting = () => {
                         borderRadius={"6px"}
                         px={"10px"}
                         py={"6px"}
+                        zIndex={2}
                     >
                         The link has been copied, please share with your
                         friends!
