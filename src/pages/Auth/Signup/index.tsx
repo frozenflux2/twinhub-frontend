@@ -52,6 +52,7 @@ const Signup = () => {
     const isAuthorized = contextData?.isAuthorized
     const setIsAuthorized = contextData?.setAuthorized
     const setUserId = contextData?.setUserId
+    const setShowPresent = contextData?.setShowPresent
 
     const handleGoogleLogin = useGoogleLogin({
         onSuccess: (tokenResponse) => {
@@ -116,6 +117,7 @@ const Signup = () => {
                             response.access_token
                         )
                         setIsAuthorized && setIsAuthorized(true)
+                        setShowPresent && setShowPresent(true)
                     }
                     resolve()
                 })
