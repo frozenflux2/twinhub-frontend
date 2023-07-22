@@ -26,6 +26,7 @@ const withAuthorization = (WrappedComponent) => {
         const [personas, setPersonas] = useState<personaProps[]>([])
         const [isLoading, setIsLoading] = useState(true)
         const [userId, setUserId] = useState(0)
+        const [showPresent, setShowPresent] = useState(false)
 
         useEffect(() => {
             const checkTokenAuthorization = async () => {
@@ -99,9 +100,11 @@ const withAuthorization = (WrappedComponent) => {
                         isAuthorized,
                         personas,
                         userId,
+                        showPresent,
                         setAuthorized: (e) => setIsAuthorized(e),
                         setPersonas: (e) => setPersonas(e),
-                        setUserId: (e) => setUserId(e)
+                        setUserId: (e) => setUserId(e),
+                        setShowPresent: (e) => setShowPresent(e)
                     }}
                 >
                     {isLoading ? <Loader /> : <WrappedComponent />}
