@@ -118,8 +118,10 @@ const Chatting = () => {
                 if (!audioBlob) return
 
                 // Create an audio element and set the audio source using a Blob URL
-                var audioElement = document.createElement("audio")
+                // var audioElement = document.createElement("audio")
+                const audioElement = new Audio()
                 // currentAudioElement = audioElement;
+                audioElement.autoplay = true
                 audioElement.src = URL.createObjectURL(audioBlob)
                 audioElement.autoplay = true
 
